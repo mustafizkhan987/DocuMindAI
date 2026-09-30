@@ -297,6 +297,14 @@ cp .env.example .env
 
 # 5. Start the development server
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+### Docker Setup (PostgreSQL Development Database)
+
+```bash
+# Start local PostgreSQL container and FastAPI backend
+docker compose up -d
+
+# Stop environment
+docker compose down
 ```
 
 ### Verify Backend is Running
@@ -307,6 +315,9 @@ curl http://localhost:8000/
 
 # Test health endpoint
 curl http://localhost:8000/health
+
+# Test versioned health endpoint
+curl http://localhost:8000/api/v1/health
 
 # Open Swagger UI in browser
 http://localhost:8000/docs
@@ -338,12 +349,13 @@ pytest tests/ -v
 
 ## API Endpoints
 
-### Current (Task 1)
+### Current (Task 1 & Task 2)
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/` | API info and version |
-| GET | `/health` | Health check |
+| GET | `/health` | Base health check |
+| GET | `/api/v1/health` | Versioned API health check with DB status |
 | GET | `/docs` | Swagger UI |
 | GET | `/redoc` | ReDoc UI |
 

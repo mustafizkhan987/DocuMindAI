@@ -1,1 +1,3 @@
-# DocuMind AI — Services package
+"""
+DocuMind AI Services Package
+"""

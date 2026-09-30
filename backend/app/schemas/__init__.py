@@ -1,1 +1,3 @@
-# DocuMind AI — Schemas package
+"""
+DocuMind AI Pydantic Schemas Package
+"""

@@ -6,9 +6,32 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased]
+## [0.2.0] — 2026-09-30
 
-*Future tasks will be recorded here before release.*
+### Task 2 — FastAPI Backend Foundation
+
+#### Added
+- **Modular FastAPI Architecture**:
+  - `backend/app/api/v1/router.py` — Central API v1 router
+  - `backend/app/api/v1/endpoints/health.py` — Versioned health check endpoint (`GET /api/v1/health`)
+- **Configuration Management**:
+  - `backend/app/core/config.py` — Centralized Pydantic Settings with `@lru_cache` helper
+- **Database Infrastructure**:
+  - `backend/app/core/database.py` — SQLAlchemy engine, `SessionLocal`, `Base`, `get_db` dependency, and graceful `check_database_connection()`
+  - `backend/app/models/base.py` — Declarative ORM Base model and `TimestampMixin`
+- **Centralized Exception & Logging Infrastructure**:
+  - `backend/app/core/exceptions.py` — Custom exception classes and global error handlers preventing internal details leakage
+  - `backend/app/core/logging.py` — Production-conscious logger with zero secret leakage
+- **Docker Setup**:
+  - `backend/Dockerfile` — Python 3.13 image configuration for FastAPI API service
+  - `docker-compose.yml` — Local development environment with PostgreSQL 16 (`documind-db`) and FastAPI API (`documind-api`)
+- **Backend Test Suite Expansion**:
+  - `backend/tests/test_health.py` — Tests for `/health` and `/api/v1/health`
+  - `backend/tests/test_config.py` — Tests for settings, exceptions, and DB connection check (18 total tests passing)
+
+#### Changed
+- Refactored `backend/app/main.py` to use FastAPI's `lifespan` context manager instead of deprecated `on_event` handlers.
+- Updated `backend/requirements.txt` with `sqlalchemy==2.1.1` and `psycopg[binary]==3.3.6`.
 
 ---
 

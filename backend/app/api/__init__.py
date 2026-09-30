@@ -1,1 +1,3 @@
-# DocuMind AI — API package
+"""
+DocuMind AI API Package
+"""

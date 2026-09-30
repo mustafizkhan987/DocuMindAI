@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database Development Service
+  db:
+    image: postgres:16-alpine
+    container_name: documind-db
+    environment:
+      POSTGRES_DB: documind
+      POSTGRES_USER: documind
+      POSTGRES_PASSWORD: documind
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U documind -d documind"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend API Service
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: documind-api
+    environment:
+      APP_ENV: development
+      APP_NAME: DocuMind AI
+      APP_VERSION: 0.1.0
+      DATABASE_URL: postgresql+psycopg://documind:documind@db:5432/documind
+      SECRET_KEY: dev-secret-key-change-in-production-32-chars-min
+      ALLOWED_ORIGINS: http://localhost:3000,http://10.0.2.2:8000,http://localhost:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

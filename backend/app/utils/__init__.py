@@ -1,1 +1,3 @@
-# DocuMind AI — Utils package
+"""
+DocuMind AI Utilities Package
+"""

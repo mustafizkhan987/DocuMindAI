@@ -2,62 +2,60 @@
 DocuMind AI — FastAPI Application Entry Point
 =============================================
 
-Task 1: Project Foundation
+Task 2: FastAPI Backend Foundation
 Version: 0.1.0
 
-This is the main FastAPI application that serves as the backend for
-DocuMind AI — an AI-powered GST-aware document & invoice intelligence
-platform for Indian businesses.
+This is the refactored, modular FastAPI application for DocuMind AI.
 
-Current scope (Task 1):
-    - GET /          → API info
-    - GET /health    → Health check
-    - /docs          → Swagger UI
-    - /redoc         → ReDoc UI
-
-Future tasks will add:
-    - Document upload endpoints  (Task 5)
-    - OCR pipeline               (Task 7)
-    - Invoice extraction         (Task 9)
-    - GSTIN validation           (Task 11)
-    - PostgreSQL persistence     (Task 16)
-    - Analytics                  (Task 21)
-    - RAG / Q&A                  (Task 29-30)
+Responsibilities:
+    - Application instantiation with async lifespan management
+    - Pydantic Settings integration
+    - Middleware setup (CORS)
+    - Centralized exception handlers
+    - API v1 router registration (/api/v1/...)
+    - Root and legacy health endpoints (GET /, GET /health)
 """
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-import os
-from dotenv import load_dotenv
 
-# Load environment variables from .env if present
-load_dotenv()
+from app.core.config import settings
+from app.core.logging import logger
+from app.core.exceptions import register_exception_handlers
+from app.api.v1.router import api_router
+
 
 # ---------------------------------------------------------------------------
-# Application Configuration
+# Lifespan Context Manager (Startup / Shutdown)
 # ---------------------------------------------------------------------------
-APP_NAME = os.getenv("APP_NAME", "DocuMind AI")
-APP_VERSION = os.getenv("APP_VERSION", "0.1.0")
-APP_ENV = os.getenv("APP_ENV", "development")
+@asynccontextmanager
+async def lifespan(app_instance: FastAPI):
+    """Application lifespan context manager handling startup and shutdown events."""
+    logger.info(f"Starting {settings.APP_NAME} v{settings.APP_VERSION} [{settings.APP_ENV}]")
+    yield
+    logger.info(f"Shutting down {settings.APP_NAME}")
+
 
 # ---------------------------------------------------------------------------
 # FastAPI Application Instance
 # ---------------------------------------------------------------------------
 app = FastAPI(
-    title="DocuMind AI API",
+    title=settings.APP_NAME,
     description=(
         "AI-Powered GST-Aware Document & Invoice Intelligence Platform. "
         "Processes Indian business documents: invoices, receipts, purchase "
         "orders, bills and more. Extracts structured data, validates GSTIN, "
         "checks GST tax components and detects anomalies."
     ),
-    version=APP_VERSION,
+    version=settings.APP_VERSION,
     docs_url="/docs",
     redoc_url="/redoc",
+    lifespan=lifespan,
     contact={
         "name": "DocuMind AI",
-        "url": "https://github.com/mustafizkhan987/DocuMind-AI",
+        "url": "https://github.com/mustafizkhan987/DocuMindAI",
     },
     license_info={
         "name": "MIT",
@@ -65,29 +63,31 @@ app = FastAPI(
 )
 
 # ---------------------------------------------------------------------------
-# CORS Middleware
+# Middleware
 # ---------------------------------------------------------------------------
-# In development, allow localhost and the Android emulator's host address.
-# In production this should be locked to specific origins.
-allowed_origins_env = os.getenv(
-    "ALLOWED_ORIGINS",
-    "http://localhost:3000,http://10.0.2.2:8000,http://localhost:8000",
-)
-allowed_origins = [origin.strip() for origin in allowed_origins_env.split(",")]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=settings.cors_origins_list,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # ---------------------------------------------------------------------------
-# Routes
+# Exception Handlers
 # ---------------------------------------------------------------------------
+register_exception_handlers(app)
+
+# ---------------------------------------------------------------------------
+# Routers
+# ---------------------------------------------------------------------------
+# Include API v1 routes under /api/v1
+app.include_router(api_router, prefix="/api/v1")
 
 
+# ---------------------------------------------------------------------------
+# Root & Base Health Endpoints
+# ---------------------------------------------------------------------------
 @app.get(
     "/",
     summary="API Root",
@@ -104,11 +104,12 @@ async def root() -> JSONResponse:
     return JSONResponse(
         content={
             "message": "DocuMind AI API is running",
-            "version": APP_VERSION,
-            "environment": APP_ENV,
+            "version": settings.APP_VERSION,
+            "environment": settings.APP_ENV,
             "docs": "/docs",
             "redoc": "/redoc",
             "health": "/health",
+            "v1_health": "/api/v1/health",
         }
     )
 
@@ -116,11 +117,7 @@ async def root() -> JSONResponse:
 @app.get(
     "/health",
     summary="Health Check",
-    description=(
-        "Health check endpoint. Returns the current status of the API. "
-        "Future tasks will extend this to check database connectivity, "
-        "AI service availability, etc."
-    ),
+    description="Base health check endpoint returning status and API version.",
     tags=["Health"],
 )
 async def health_check() -> JSONResponse:
@@ -133,7 +130,7 @@ async def health_check() -> JSONResponse:
     return JSONResponse(
         content={
             "status": "healthy",
-            "version": APP_VERSION,
-            "environment": APP_ENV,
+            "version": settings.APP_VERSION,
+            "environment": settings.APP_ENV,
         }
     )
