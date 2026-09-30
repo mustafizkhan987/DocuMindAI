@@ -6,6 +6,18 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.8.5] — 2026-09-30
+
+### Task 8.5 — Professional Android UI & Trust-Centric UX
+
+#### Changed
+- **App Theme**: Updated Android Material 3 theme to use a highly professional color palette (`Deep Navy`, `Muted Teal`) replacing the dark "AI demo" aesthetic.
+- **UI Architecture**: Implemented full `navigation-compose` flow replacing the static Foundation Screen.
+- **Screens**: Redesigned Home, Documents List, Document Review, Upload, Processing, Settings, and About screens to target business-level trust and older demographic accessibility (larger touch targets, clearer typography).
+- **Components**: Standardized `StatusBadge`, `DocuMindPrimaryButton`, and `InformationRow` components across the app.
+
+---
+
 ## [0.8.0] — 2026-09-30
 
 ### Task 8 — Document Classification

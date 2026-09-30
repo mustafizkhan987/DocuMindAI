@@ -17,39 +17,41 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 // DocuMind AI Brand Colors
-// Primary: Deep Indigo/Blue — trust, intelligence, professionalism
-val DocuMindPrimary = Color(0xFF1A237E)          // Deep Indigo
-val DocuMindPrimaryVariant = Color(0xFF283593)   // Indigo 800
-val DocuMindSecondary = Color(0xFF00BCD4)        // Cyan — modern, AI-forward
-val DocuMindSecondaryVariant = Color(0xFF0097A7) // Cyan 700
-val DocuMindAccent = Color(0xFF26C6DA)           // Cyan 400
+// Primary: Deep professional navy/blue
+val DocuMindPrimary = Color(0xFF0F2046)          
+val DocuMindPrimaryVariant = Color(0xFF0A1530)   
+val DocuMindSecondary = Color(0xFF2C7A7B)        // Muted teal
+val DocuMindSecondaryVariant = Color(0xFF235F5F) 
+val DocuMindAccent = Color(0xFF319795)           
 
 // Semantic Colors
-val DocuMindSuccess = Color(0xFF4CAF50)          // Green — validated
-val DocuMindWarning = Color(0xFFFF9800)          // Orange — attention needed
-val DocuMindError = Color(0xFFF44336)            // Red — issue detected
+val DocuMindSuccess = Color(0xFF2F855A)          // Professional green
+val DocuMindWarning = Color(0xFFC05621)          // Amber/orange
+val DocuMindError = Color(0xFFC53030)            // Muted red
 
-// Dark Theme Backgrounds
-val DarkBackground = Color(0xFF0A0E1A)           // Very dark navy
-val DarkSurface = Color(0xFF131929)              // Dark card surface
-val DarkSurfaceVariant = Color(0xFF1E2A3F)       // Slightly lighter surface
+// Backgrounds and Surfaces
+val LightBackground = Color(0xFFF7FAFC)
+val LightSurface = Color(0xFFFFFFFF)
+val DarkBackground = Color(0xFF1A202C)
+val DarkSurface = Color(0xFF2D3748)
+val DarkSurfaceVariant = Color(0xFF4A5568)
 
 private val DarkColorScheme = darkColorScheme(
-    primary = DocuMindSecondary,
-    onPrimary = Color(0xFF003040),
-    primaryContainer = Color(0xFF004D61),
-    onPrimaryContainer = Color(0xFFB2EBF2),
-    secondary = DocuMindAccent,
-    onSecondary = Color(0xFF002B36),
-    secondaryContainer = Color(0xFF004D5C),
-    onSecondaryContainer = Color(0xFFB2EBF2),
-    tertiary = Color(0xFF80DEEA),
+    primary = DocuMindPrimary,
+    onPrimary = Color.White,
+    primaryContainer = DocuMindPrimaryVariant,
+    onPrimaryContainer = Color.White,
+    secondary = DocuMindSecondary,
+    onSecondary = Color.White,
+    secondaryContainer = DocuMindSecondaryVariant,
+    onSecondaryContainer = Color.White,
+    tertiary = DocuMindAccent,
     background = DarkBackground,
-    onBackground = Color(0xFFE3F2FD),
+    onBackground = Color(0xFFE2E8F0),
     surface = DarkSurface,
-    onSurface = Color(0xFFE3F2FD),
+    onSurface = Color(0xFFE2E8F0),
     surfaceVariant = DarkSurfaceVariant,
-    onSurfaceVariant = Color(0xFFB0BEC5),
+    onSurfaceVariant = Color(0xFFCBD5E0),
     error = DocuMindError,
     onError = Color.White,
 )
@@ -57,19 +59,19 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = DocuMindPrimary,
     onPrimary = Color.White,
-    primaryContainer = Color(0xFFE8EAF6),
+    primaryContainer = Color(0xFFE2E8F0),
     onPrimaryContainer = DocuMindPrimary,
-    secondary = Color(0xFF0097A7),
+    secondary = DocuMindSecondary,
     onSecondary = Color.White,
-    secondaryContainer = Color(0xFFE0F7FA),
-    onSecondaryContainer = Color(0xFF006064),
-    tertiary = Color(0xFF00838F),
-    background = Color(0xFFF5F7FF),
-    onBackground = Color(0xFF0A0E1A),
-    surface = Color.White,
-    onSurface = Color(0xFF1A1A2E),
-    surfaceVariant = Color(0xFFF0F2FF),
-    onSurfaceVariant = Color(0xFF3D4560),
+    secondaryContainer = Color(0xFFE6FFFA),
+    onSecondaryContainer = DocuMindSecondaryVariant,
+    tertiary = DocuMindAccent,
+    background = LightBackground,
+    onBackground = Color(0xFF1A202C),
+    surface = LightSurface,
+    onSurface = Color(0xFF1A202C),
+    surfaceVariant = Color(0xFFEDF2F7),
+    onSurfaceVariant = Color(0xFF4A5568),
     error = DocuMindError,
     onError = Color.White,
 )

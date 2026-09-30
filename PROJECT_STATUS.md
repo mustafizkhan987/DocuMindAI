@@ -1,7 +1,7 @@
 # Project Status
 
 > **Last Updated:** 2026-09-30
-> **Updated By:** Task 8 — Document Classification
+> **Updated By:** Task 8.5 — Professional Android UI
 
 ---
 
@@ -13,7 +13,7 @@
 
 ## Current Task
 
-**Task 8 — Document Classification** ✅ COMPLETED
+**Task 8.5 — Professional Android UI** ✅ COMPLETED
 
 ---
 
@@ -69,12 +69,13 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 - [x] Task 6: Image Preprocessing pipeline
 - [x] Task 7: OCR Engine using EasyOCR
 - [x] Task 8: Document Classification
+- [x] Task 8.5: Professional Android UI
 
 ---
 
 ## In Progress
 
-*None — Task 8 is complete. Task 9 is next.*
+*None — Task 8.5 is complete. Task 9 is next.*
 
 ---
 
