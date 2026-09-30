@@ -28,6 +28,10 @@ class Settings(BaseSettings):
     # CORS
     ALLOWED_ORIGINS: str = "http://localhost:3000,http://10.0.2.2:8000,http://localhost:8000"
 
+    # Storage
+    MAX_UPLOAD_SIZE_MB: int = 10
+    STORAGE_DIR: str = "storage/documents"
+
     # Logging
     LOG_LEVEL: str = "INFO"
 

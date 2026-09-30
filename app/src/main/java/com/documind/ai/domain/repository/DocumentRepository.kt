@@ -11,4 +11,5 @@ import kotlinx.coroutines.flow.Flow
 interface DocumentRepository {
     suspend fun getBackendHealth(): Result<BackendHealth>
     fun getRecentDocuments(): Flow<List<Document>>
+    suspend fun uploadDocument(fileBytes: ByteArray, fileName: String, mimeType: String): Result<Document>
 }

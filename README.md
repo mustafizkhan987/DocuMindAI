@@ -15,6 +15,8 @@ DocuMind AI is an Android-first intelligent document and invoice processing plat
 
 The platform goes far beyond simple OCR scanning. It **understands** documents, **extracts** structured information, **verifies** GST compliance, **detects** issues, and **explains** every finding in plain language.
 
+*(Currently implemented: Document Upload Pipeline. OCR & Extraction are scheduled for upcoming tasks.)*
+
 ```
 Camera Photo / Image / PDF
          ↓

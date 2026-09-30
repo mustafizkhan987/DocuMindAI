@@ -6,6 +6,21 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.5.0] — 2026-09-30
+
+### Task 5 — Document Upload
+
+#### Added
+- **Android Document Picker**: Integrated file selection using Android's modern Activity Result API.
+- **Multipart Upload Flow**: Implemented Retrofit multipart network call (`MultipartBody.Part`) to upload documents from Android safely.
+- **FastAPI Upload Endpoint**: Added `POST /api/v1/documents/upload` for secure file uploads.
+- **File Validation**: Enforced file existence, non-emptiness, MIME types (PDF, JPEG, PNG), and max file sizes.
+- **Local Storage**: Saved files to `backend/storage/documents` with unique UUID names, avoiding public/static directories and ensuring it is ignored by Git.
+- **Upload State & Error Handling**: UI in `DocumentsScreen` dynamically updates to show progress, success, or detailed error messages.
+- **Comprehensive Testing**: Validated backend constraints with automated pytest tests including oversized files, invalid types, and empty files.
+
+---
+
 ## [0.4.0] — 2026-09-30
 
 ### Task 4 — Android ↔ Backend Connection

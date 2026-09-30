@@ -7,6 +7,8 @@ import com.documind.ai.domain.model.Document
 import com.documind.ai.domain.repository.DocumentRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 
 /**
  * Concrete repository implementation of DocumentRepository.
@@ -47,5 +49,34 @@ class DocumentRepositoryImpl(
     override fun getRecentDocuments(): Flow<List<Document>> = flow {
         // Task 4: Empty list placeholder for recent documents for now
         emit(emptyList())
+    }
+
+    override suspend fun uploadDocument(fileBytes: ByteArray, fileName: String, mimeType: String): Result<Document> {
+        return try {
+            val requestBody = fileBytes.toRequestBody(mimeType.toMediaTypeOrNull())
+            val multipartBody = okhttp3.MultipartBody.Part.createFormData("file", fileName, requestBody)
+            
+            val response = api.uploadDocument(multipartBody)
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) {
+                    Result.Success(
+                        Document(
+                            id = body.documentId,
+                            fileName = body.originalFilename,
+                            documentType = body.contentType,
+                            status = body.status,
+                            dateAdded = body.uploadTimestamp
+                        )
+                    )
+                } else {
+                    Result.Error(Exception("Empty response body"), "Server returned empty response")
+                }
+            } else {
+                Result.Error(Exception("HTTP error: ${response.code()}"), "Failed to upload document: HTTP ${response.code()}")
+            }
+        } catch (e: Exception) {
+            Result.Error(e, "Upload failed: ${e.localizedMessage}")
+        }
     }
 }

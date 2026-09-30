@@ -142,6 +142,8 @@ data/labeled/*
 # Uploaded Files / Media
 # ──────────────────────────────────────────────────────────────────────────────
 uploads/
+backend/storage/documents/*
+!backend/storage/documents/.gitkeep
 *.pdf
 *.jpg
 *.jpeg
