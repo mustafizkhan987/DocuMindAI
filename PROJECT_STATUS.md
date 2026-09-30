@@ -135,7 +135,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 | Uvicorn | 0.34.3 | ✅ Configured |
 | Pydantic | 2.11.4 | ✅ Configured |
 | Java | 24.0.2 | ✅ Available |
-| Android SDK | Present | ✅ Available |
+| Android SDK | compileSdk 37, minSdk 27, targetSdk 36 | ✅ Configured |
 | PostgreSQL | Not installed | ⏳ Task 16 |
 | PaddleOCR | Not installed | ⏳ Task 7 |
 | OpenCV | Not installed | ⏳ Task 6 |

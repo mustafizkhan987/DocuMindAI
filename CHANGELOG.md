@@ -64,7 +64,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 #### Changed
 
-*N/A — Initial release.*
+- Configured Android `compileSdk` to 37 to support `androidx.core:core-ktx:1.19.0`, while keeping `minSdk` at 27 and `targetSdk` at 36.
 
 #### Fixed
 

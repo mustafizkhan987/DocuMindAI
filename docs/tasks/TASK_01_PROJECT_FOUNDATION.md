@@ -253,16 +253,19 @@ Result: **PASS** — All required files exist with correct package names and imp
 | Component | Status | Notes |
 |-----------|--------|-------|
 | Backend (FastAPI) | ✅ PASS | All imports work, all tests pass |
-| Android (Gradle) | ⚠️ NEEDS ANDROID STUDIO | Project created with correct structure. Open in Android Studio to build and run. |
+| Android (Gradle) | ✅ PASS | Project compiles successfully |
 
-### Android Build Note
-The Android project has all files created correctly. To build:
-1. Open Android Studio
-2. Open `android/DocuMind/`
-3. Let Gradle sync (downloads Gradle 8.11.1 + all dependencies)
-4. Run on emulator or device
+### Android SDK Configuration
+- **compileSdk:** 37
+- **minSdk:** 27
+- **targetSdk:** 36
+- **core-ktx version:** 1.19.0
+- **Reason for compileSdk change:** `androidx.core:core-ktx:1.19.0` requires compiling against API 37 or later. The targetSdk remains 36 and minSdk remains 27, ensuring compatibility without forcing users to upgrade OS versions.
 
-The Gradle wrapper will download automatically on first sync.
+### Android Emulator Status
+- Tested successfully on a Pixel 8 API 35 emulator.
+- Gradle sync, build, and app launch succeed.
+- Foundation screen correctly displays App Identity, "Not Connected" backend status, and feature placeholders. No crashes.
 
 ---
 
