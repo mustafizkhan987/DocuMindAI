@@ -6,6 +6,18 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.8.6] — 2026-09-30
+
+### Task 8.5B — Visual Redesign
+
+#### Changed
+- **Complete Visual Overhaul**: Completely redesigned the UI to match professional business applications (e.g. Google Drive) moving away from developer/dark-mode dashboards.
+- **Light Theme Enforced**: Replaced Dark Theme defaults and disabled Android 12+ dynamic colors to strictly enforce the brand identity (Deep Navy, Muted Teal, Light Backgrounds).
+- **Redesigned Screens**: Rebuilt `HomeScreen`, `DocumentsScreen`, `UploadScreen`, `ProcessingScreen`, `DocumentResultScreen`, and `AboutScreen`.
+- **Removed Technical Information**: Removed all mentions of internal statuses (FastAPI, backend routes, Task names) from the user-facing interface.
+
+---
+
 ## [0.8.5] — 2026-09-30
 
 ### Task 8.5 — Professional Android UI & Trust-Centric UX

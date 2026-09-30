@@ -2,10 +2,22 @@ package com.documind.ai.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+// DocuMind AI Professional Brand Colors
+val DocuMindPrimary = Color(0xFF0F2046)          // Deep professional navy/blue
+val DocuMindPrimaryVariant = Color(0xFF0A1530)
+val DocuMindSecondary = Color(0xFF2F855A)        // Muted teal/green for success states
+val DocuMindSecondaryVariant = Color(0xFF235F5F)
+val DocuMindAccent = Color(0xFF319795)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Semantic Colors
+val DocuMindSuccess = Color(0xFF2F855A)          // Professional green
+val DocuMindWarning = Color(0xFFC05621)          // Amber/orange
+val DocuMindError = Color(0xFFC53030)            // Muted red
+val DocuMindInfo = Color(0xFF2B6CB0)             // Info blue
+
+// Backgrounds and Surfaces
+val LightBackground = Color(0xFFF8FAFC)          // Very light neutral / off-white
+val LightSurface = Color(0xFFFFFFFF)             // White cards
+val TextPrimary = Color(0xFF0F172A)              // Dark charcoal/navy
+val TextSecondary = Color(0xFF475569)            // Slate
+val BorderLight = Color(0xFFE2E8F0)              // Subtle light gray border

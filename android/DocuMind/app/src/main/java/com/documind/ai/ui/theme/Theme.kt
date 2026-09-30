@@ -84,8 +84,8 @@ private val LightColorScheme = lightColorScheme(
  */
 @Composable
 fun DocuMindTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    darkTheme: Boolean = false, // Force Light Mode as primary experience
+    dynamicColor: Boolean = false, // Disable Material You dynamic colors to enforce brand identity
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

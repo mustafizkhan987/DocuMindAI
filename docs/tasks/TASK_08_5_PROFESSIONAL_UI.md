@@ -113,3 +113,48 @@ Task 8.5 UI UX overhaul is fully completed and integrated safely without touchin
 - **Visual QA result:** Confirmed removal of gradients and neon themes. Standardized deep navy themes. All components updated to Material 3 standard forms.
 - **Backend regression result:** PASS (No backend files modified).
 - **Known limitations:** UI navigation flow relies on simulated/mock states. Actual Retrofit connection and device APIs (Camera/File picker) will need to be wired in subsequent tasks.
+## Task 8.5B Visual Redesign
+
+### Original UI Problems
+- The UI had a dark "developer dashboard" theme (`Color(0xFF0F172A)`), which is intimidating for an older, non-technical demographic.
+- The `HomeScreen` exposed internal diagnostics like "Backend API Status" and "FastAPI Backend (Task 4 Connection)".
+- Technical jargon like "OCR & Document Understanding" and "Platform Capabilities" was front-and-center, rather than focusing on user actions.
+
+### Design Decisions
+- Adopted a clean, light mode primary experience (Off-white backgrounds and white cards) inspired by Google Drive and modern document managers.
+- Utilized a deep navy blue as the primary brand color to build professional trust without overwhelming the user.
+- Enforced `dynamicColor = false` in `Theme.kt` to ensure brand consistency across Android 12+ devices, overriding Material You wallpaper theming.
+- Used high-contrast typography, limiting technical jargon.
+
+### Screens Redesigned
+- **Home**: Removed backend statuses and replaced them with a prominent "Upload Document" CTA and a clean "Recent Documents" list.
+- **Documents**: Replaced the technical upload UI with a standard document listing and search view.
+- **Upload**: Developed a standalone upload screen with clearly disabled "Take Photo" action and explicit supported format instructions.
+- **Processing**: Created a step-by-step human-readable progress screen ("Image enhanced", "Reading document") masking the OCR pipeline.
+- **Result**: Refined extraction results with clear "Information Found" groupings and a distinct "Demo Preview" banner to ensure extraction isn't conflated with validation.
+- **Settings/About**: Removed all non-functional toggles. Emphasized the disclaimer: "DocuMind AI is an independent software application and is not a government service."
+
+### Components Changed
+- Rewrote `Theme.kt` and `Color.kt` for a professional light theme.
+- Updated `Type.kt` to match standardized sizing.
+- Rewrote `AppBottomNavigation` to map strictly to `Home`, `Documents`, and `Settings`.
+- Created unified `PrimaryButton` and `DocumentCard` components.
+
+### Accessibility Decisions
+- Used high-contrast Slate and Navy text over light backgrounds.
+- Avoided all-caps and jargon.
+- Used semantic labels along with colors (e.g. appending "(Sample)").
+
+### Removed Technical Information
+- Removed all mentions of FastAPI, Backend connections, OCR engines, and Task 4 connections from user-facing screens.
+
+### Removed Fake Functionality
+- Explicitly marked "Take Photo" as disabled and unavailable instead of presenting a fake camera flow.
+- Removed fake setting toggles (e.g., dark mode overrides, tracking limits) that were not yet wired up.
+
+### Remaining Limitations
+- Upload picker still simulates upload (`mock_doc_id_12345`).
+- Processing delays are hardcoded delays simulating pipeline steps.
+- Extraction results are mocked placeholders.
+- Actual backend endpoints (Task 9) need to be wired.
+- Device camera API not yet implemented.

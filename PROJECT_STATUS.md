@@ -70,12 +70,13 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 - [x] Task 7: OCR Engine using EasyOCR
 - [x] Task 8: Document Classification
 - [x] Task 8.5: Professional Android UI
+- [x] Task 8.5B: Visual Redesign
 
 ---
 
 ## In Progress
 
-*None — Task 8.5 is complete. Task 9 is next.*
+*None — Task 8.5B is complete. Task 9 is next.*
 
 ---
 
