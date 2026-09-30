@@ -9,6 +9,7 @@ pydantic-settings==2.9.1
 # Database ORM and PostgreSQL driver
 sqlalchemy==2.1.1
 psycopg[binary]==3.3.6
+alembic==1.15.1
 
 # HTTP utilities and Multipart parsing
 httpx==0.28.1

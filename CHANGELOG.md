@@ -6,6 +6,17 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.16.0] — 2026-09-30
+
+### Task 16: PostgreSQL Integration & ORM Foundation
+#### Added
+- **Database Architecture**: Formalized the SQLAlchemy 2.x Declarative Base and timezone-aware `TimestampMixin` for future models.
+- **Migration System**: Introduced and configured `alembic` to manage database schema migrations seamlessly.
+- **Environment Driven Settings**: Ensured `alembic/env.py` and SQLAlchemy engines derive all connections from `app.core.config.settings.DATABASE_URL`.
+- **Infrastructure Testing**: Created `test_database.py` with mocked isolation testing for the Base class, connection behaviors, Session yielding, and health checks.
+
+---
+
 ## [0.15.0] — 2026-09-30
 
 ### Task 15: Phase 2 Final Integration & Explainable Intelligence

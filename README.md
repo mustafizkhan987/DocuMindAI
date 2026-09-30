@@ -15,7 +15,7 @@ DocuMind AI is an Android-first intelligent document and invoice processing plat
 
 The platform goes far beyond simple OCR scanning. It **understands** documents, **extracts** structured information, **verifies** GST compliance, **detects** issues, and **explains** every finding in plain language.
 
-*(Currently implemented: Full Phase 2 Invoice Intelligence Pipeline, including Document Upload, Image Preprocessing, OCR (EasyOCR), LLM Extraction, Canonical Schema, GSTIN Validation, State Detection, Tax-Type Verification, Mathematical Consistency checking, and Explainable AI Results.)*
+*(Currently implemented: Full Phase 2 Invoice Intelligence Pipeline, and Phase 3 Database Foundation. Document-backed persistence is planned for the upcoming task.)*
 
 ```
 Camera Photo / Image / PDF
@@ -160,7 +160,8 @@ The primary differentiator is **India-specific invoice intelligence**:
 | Framework | FastAPI |
 | Server | Uvicorn |
 | Validation | Pydantic v2 |
-| ORM | SQLAlchemy |
+| ORM | SQLAlchemy 2.x |
+| Migrations | Alembic |
 
 ### Database
 | Component | Technology |

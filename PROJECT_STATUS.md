@@ -13,7 +13,7 @@
 
 ## Current Task
 
-**Task 16 — PostgreSQL Integration** (Not Started)
+**Task 16 — PostgreSQL Integration** ✅ COMPLETED
 
 ---
 
@@ -22,7 +22,7 @@
 ```
 Phase 1 — Foundation          [██████████] 100% (Task 4 of 4 complete)
 Phase 2 — Document Pipeline   [██████████] 100% (Task 15 complete)
-Phase 3 — Advanced Intelligence & Persistence [░░░░░░░░░░]  0%
+Phase 3 — Advanced Intelligence & Persistence [██░░░░░░░░] 15% (Task 16 complete)
 Phase 4 — Persistence         [░░░░░░░░░░]   0%
 Phase 5 — Intelligence        [░░░░░░░░░░]   0%
 Phase 6 — Advanced India      [░░░░░░░░░░]   0%
@@ -78,12 +78,13 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 - [x] Task 13: GST Tax Type Validation
 - [x] Task 14: Invoice Mathematical Validation
 - [x] Task 15: Phase 2 Final Integration & Explainable Intelligence
+- [x] Task 16: PostgreSQL Integration & ORM Foundation
 
 ---
 
 ## In Progress
 
-*None — Phase 2 is complete. Phase 3 is next.*
+*None — Task 16 is complete. Task 17 is next.*
 
 ---
 
@@ -91,8 +92,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 | Task | Name |
 |------|------|
-| Task 16 | PostgreSQL Integration |
-| Task 17 | Document History |
+| Task 17 | Document History & Persistence |
 | Task 18 | Editable Extraction/Correction System |
 | Task 19 | Duplicate Detection |
 | Task 20 | Vendor Intelligence |
