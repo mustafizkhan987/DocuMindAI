@@ -29,10 +29,12 @@ Task 13 does NOT validate tax rates, amounts, or invoice arithmetic. Those respo
 | CGST | SGST | IGST | Result |
 |------|------|------|--------|
 | >0   | >0   | 0/None | CONSISTENT |
-| >0   | 0    | 0/None | MISMATCH (SGST missing) |
-| 0    | >0   | 0/None | MISMATCH (CGST missing) |
-| 0    | 0    | >0   | MISMATCH (IGST present, CGST/SGST missing) |
+| >0   | 0    | 0/None | MISMATCH (SGST is explicitly zero) |
+| 0    | >0   | 0/None | MISMATCH (CGST is explicitly zero) |
+| None | >0   | 0/None | REVIEW_REQUIRED (CGST missing) |
+| >0   | None | 0/None | REVIEW_REQUIRED (SGST missing) |
 | >0   | >0   | >0   | MISMATCH (IGST should not be present) |
+| 0    | 0    | >0   | MISMATCH (IGST present, CGST/SGST zero) |
 | 0    | 0    | 0    | REVIEW_REQUIRED |
 | None | None | None | REVIEW_REQUIRED |
 
@@ -40,7 +42,8 @@ Task 13 does NOT validate tax rates, amounts, or invoice arithmetic. Those respo
 | CGST | SGST | IGST | Result |
 |------|------|------|--------|
 | 0/None | 0/None | >0 | CONSISTENT |
-| >0   | >0   | 0/None | MISMATCH (CGST/SGST present, IGST missing) |
+| 0/None | 0/None | 0    | MISMATCH (IGST is explicitly zero) |
+| 0/None | 0/None | None | REVIEW_REQUIRED (IGST missing) |
 | >0   | >0   | >0   | MISMATCH (CGST/SGST should not be present) |
 | 0    | 0    | 0    | REVIEW_REQUIRED |
 | None | None | None | REVIEW_REQUIRED |

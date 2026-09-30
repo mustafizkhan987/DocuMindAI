@@ -389,22 +389,24 @@ def test_none_vs_zero_cgst():
     assert r_zero.actual_tax_components.cgst == Decimal("0")
     assert r_none.is_consistent is False
     assert r_zero.is_consistent is False
+    assert r_none.status == TaxTypeValidationStatus.REVIEW_REQUIRED
+    assert r_zero.status == TaxTypeValidationStatus.MISMATCH
 
 
 def test_same_state_cgst_sgst_igst_none():
-    """CGST+SGST positive with IGST=None → consistent (None means not extracted)."""
+    """CGST+SGST positive with IGST=None → REVIEW_REQUIRED."""
     r = _validate(JurisdictionRelationship.SAME_STATE,
                   cgst=Decimal("100"), sgst=Decimal("100"), igst=None)
-    assert r.is_consistent is True
-    assert r.status == TaxTypeValidationStatus.CONSISTENT
+    assert r.is_consistent is False
+    assert r.status == TaxTypeValidationStatus.REVIEW_REQUIRED
 
 
 def test_different_state_igst_positive_cgst_sgst_none():
-    """IGST positive with CGST/SGST=None → consistent."""
+    """IGST positive with CGST/SGST=None → REVIEW_REQUIRED."""
     r = _validate(JurisdictionRelationship.DIFFERENT_STATE,
                   cgst=None, sgst=None, igst=Decimal("200"))
-    assert r.is_consistent is True
-    assert r.status == TaxTypeValidationStatus.CONSISTENT
+    assert r.is_consistent is False
+    assert r.status == TaxTypeValidationStatus.REVIEW_REQUIRED
 
 
 def test_mixed_zero_and_none():

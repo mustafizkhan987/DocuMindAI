@@ -136,18 +136,35 @@ class GSTTaxTypeValidationService:
         # ------------------------------------------------------------------
         errors = []
         warnings = []
+        
+        has_missing = (
+            _is_missing(financials.cgst) or
+            _is_missing(financials.sgst) or
+            _is_missing(financials.igst)
+        )
 
         if expected == ExpectedTaxType.CGST_SGST:
             # Same-state: expect CGST>0 AND SGST>0, IGST absent or zero
+            if has_missing:
+                return GSTTaxTypeValidationResult(
+                    document_id=document_id,
+                    jurisdiction_relationship=jurisdiction,
+                    expected_tax_type=expected,
+                    actual_tax_components=actual,
+                    is_consistent=False,
+                    status=TaxTypeValidationStatus.REVIEW_REQUIRED,
+                    warnings=["One or more tax components are missing, manual review required."],
+                )
+                
             consistent = True
 
-            if not _is_positive(financials.cgst):
+            if _is_zero(financials.cgst):
                 consistent = False
-                errors.append("CGST expected for same-state transaction but is missing or zero.")
+                errors.append("CGST expected for same-state transaction but is explicitly zero.")
 
-            if not _is_positive(financials.sgst):
+            if _is_zero(financials.sgst):
                 consistent = False
-                errors.append("SGST expected for same-state transaction but is missing or zero.")
+                errors.append("SGST expected for same-state transaction but is explicitly zero.")
 
             if _is_positive(financials.igst):
                 consistent = False
@@ -155,11 +172,22 @@ class GSTTaxTypeValidationService:
 
         else:  # IGST
             # Different-state: expect IGST>0, CGST/SGST absent or zero
+            if has_missing:
+                return GSTTaxTypeValidationResult(
+                    document_id=document_id,
+                    jurisdiction_relationship=jurisdiction,
+                    expected_tax_type=expected,
+                    actual_tax_components=actual,
+                    is_consistent=False,
+                    status=TaxTypeValidationStatus.REVIEW_REQUIRED,
+                    warnings=["One or more tax components are missing, manual review required."],
+                )
+                
             consistent = True
 
-            if not _is_positive(financials.igst):
+            if _is_zero(financials.igst):
                 consistent = False
-                errors.append("IGST expected for different-state transaction but is missing or zero.")
+                errors.append("IGST expected for different-state transaction but is explicitly zero.")
 
             if _is_positive(financials.cgst):
                 consistent = False
