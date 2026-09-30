@@ -57,23 +57,31 @@ async def extract_invoice(document_id: str):
 
 from app.services.gstin_validation_service import gstin_validation_service
 from app.schemas.validation import DocumentGSTINValidationResponse
+from app.schemas.classification import DocumentType
+from fastapi import HTTPException
 
 @router.post("/{document_id}/validate-gstin", response_model=DocumentGSTINValidationResponse)
 async def validate_gstin(document_id: str):
     """
     Validate GSTIN format and checksum for seller and buyer from the extracted invoice.
-    Requires extraction to have been completed.
+    Requires classification as INVOICE and extraction to have been completed.
     Note: This performs structural/checksum validation, not government registration verification.
     """
+    # Explicit invoice classification gate
+    classification_result = classification_service.classify_document(document_id)
+    if classification_result.document_type != DocumentType.INVOICE:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="GSTIN validation is only available for documents classified as Invoice."
+        )
+
     invoice = extraction_service.get_extraction_result(document_id)
-    
+
     seller_gstin = invoice.seller.gstin if invoice.seller else None
     buyer_gstin = invoice.buyer.gstin if invoice.buyer else None
-    
+
     return DocumentGSTINValidationResponse(
         document_id=document_id,
         seller_gstin=gstin_validation_service.validate(seller_gstin),
         buyer_gstin=gstin_validation_service.validate(buyer_gstin)
     )
-
-

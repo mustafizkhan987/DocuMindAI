@@ -43,8 +43,14 @@ None
 - Set a precedent for separate validation endpoints taking document IDs, reading the canonical representation, and returning deterministic structural validation metrics.
 
 ## API Changes
-Added `POST /api/v1/documents/{document_id}/validate-gstin`. 
-The endpoint loads an existing extracted invoice and returns `DocumentGSTINValidationResponse` with deeply structured validation metrics for both the `seller_gstin` and `buyer_gstin`.
+Added `POST /api/v1/documents/{document_id}/validate-gstin`.
+The endpoint first verifies the document is classified as `INVOICE` via the existing Task 8 classification gate. Non-invoice documents (RECEIPT, PURCHASE_ORDER, BILL, OTHER) are rejected with HTTP 400 before any GSTIN logic runs.
+For valid invoices, it loads the canonical extraction and returns `DocumentGSTINValidationResponse` with structured validation metrics for both `seller_gstin` and `buyer_gstin`.
+
+Key behavioral distinction:
+- **Non-invoice document** → HTTP 400 rejection ("GSTIN validation is only available for documents classified as Invoice.")
+- **Invoice with missing GSTIN** → HTTP 200, validation proceeds, result contains `MISSING_GSTIN` in errors. This is distinct from a malformed GSTIN.
+
 *(NOTE: This returns structural check responses. It makes NO claim of government verification).*
 
 ## Database Changes
@@ -81,9 +87,11 @@ The service checks the following sequential constraints on normalized 15-charact
 - Tested lowercase handling and whitespace normalization logic (proving original variables aren't mutated).
 - Handled empty / null / absent GSTIN logic (reporting as `MISSING_GSTIN` instead of malformed syntax).
 - Tested API for mixed scenarios (e.g. Seller Valid / Buyer Invalid).
+- **Regression**: Non-invoice classification (RECEIPT) → rejected with HTTP 400.
+- **Regression**: Invoice + missing GSTIN → proceeds with HTTP 200 and reports `MISSING_GSTIN`.
 
 ## Test Results
-- 69 tests executed and PASSED.
+- 68 tests executed and PASSED.
 - 100% success on the GSTIN validation suite.
 
 ## Known Issues
@@ -95,6 +103,7 @@ None.
 ## Decisions Made
 - Added a `get_extraction_result` function to the `ExtractionService` instead of directly embedding local file-reads in the router.
 - `GSTINValidationResult` maintains an `errors` list (e.g. `['INVALID_CHECKSUM']`) instead of a single boolean, vastly improving API client observability.
+- The validate-gstin endpoint explicitly checks classification == INVOICE before proceeding, matching the pattern used by the extraction endpoint. Missing extraction artifacts are not relied upon as an indirect document-type gate.
 
 ## Things NOT Implemented
 - State detection (Extracting state from GSTIN).

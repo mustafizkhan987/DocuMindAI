@@ -87,8 +87,19 @@ def test_service_none_gstin():
     assert "MISSING_GSTIN" in res.errors
 
 @pytest.fixture
-def mock_extraction(monkeypatch):
+def mock_invoice_pipeline(monkeypatch):
+    """Mock both classification (as INVOICE) and extraction for validate-gstin API tests."""
+    from app.schemas.classification import ClassificationResult, DocumentType
+
     def _mock(seller_gstin=None, buyer_gstin=None):
+        def _classify(self, doc_id):
+            return ClassificationResult(
+                document_id=doc_id,
+                document_type=DocumentType.INVOICE,
+                confidence=0.95,
+                signals=["TAX INVOICE"]
+            )
+
         def _get_extraction_result(self, doc_id):
             return CanonicalInvoice(
                 document_id=doc_id,
@@ -96,12 +107,20 @@ def mock_extraction(monkeypatch):
                 buyer=Party(gstin=buyer_gstin),
                 financials=Financials()
             )
-        monkeypatch.setattr("app.services.extraction_service.ExtractionService.get_extraction_result", _get_extraction_result)
+
+        monkeypatch.setattr(
+            "app.services.classification_service.ClassificationService.classify_document",
+            _classify
+        )
+        monkeypatch.setattr(
+            "app.services.extraction_service.ExtractionService.get_extraction_result",
+            _get_extraction_result
+        )
     return _mock
 
 @pytest.mark.asyncio
-async def test_api_seller_gstin_only(client: AsyncClient, mock_extraction):
-    mock_extraction(seller_gstin="29ABCDE1234F1ZW", buyer_gstin=None)
+async def test_api_seller_gstin_only(client: AsyncClient, mock_invoice_pipeline):
+    mock_invoice_pipeline(seller_gstin="29ABCDE1234F1ZW", buyer_gstin=None)
     response = await client.post("/api/v1/documents/doc-123/validate-gstin")
     assert response.status_code == 200
     data = response.json()
@@ -110,8 +129,8 @@ async def test_api_seller_gstin_only(client: AsyncClient, mock_extraction):
     assert "MISSING_GSTIN" in data["buyer_gstin"]["errors"]
 
 @pytest.mark.asyncio
-async def test_api_buyer_gstin_only(client: AsyncClient, mock_extraction):
-    mock_extraction(seller_gstin=None, buyer_gstin="29ABCDE1234F1ZW")
+async def test_api_buyer_gstin_only(client: AsyncClient, mock_invoice_pipeline):
+    mock_invoice_pipeline(seller_gstin=None, buyer_gstin="29ABCDE1234F1ZW")
     response = await client.post("/api/v1/documents/doc-123/validate-gstin")
     assert response.status_code == 200
     data = response.json()
@@ -119,8 +138,8 @@ async def test_api_buyer_gstin_only(client: AsyncClient, mock_extraction):
     assert data["seller_gstin"]["is_valid"] is False
 
 @pytest.mark.asyncio
-async def test_api_both_valid(client: AsyncClient, mock_extraction):
-    mock_extraction(seller_gstin="29ABCDE1234F1ZW", buyer_gstin="29ABCDE1234F1ZW")
+async def test_api_both_valid(client: AsyncClient, mock_invoice_pipeline):
+    mock_invoice_pipeline(seller_gstin="29ABCDE1234F1ZW", buyer_gstin="29ABCDE1234F1ZW")
     response = await client.post("/api/v1/documents/doc-123/validate-gstin")
     assert response.status_code == 200
     data = response.json()
@@ -128,8 +147,8 @@ async def test_api_both_valid(client: AsyncClient, mock_extraction):
     assert data["buyer_gstin"]["is_valid"] is True
 
 @pytest.mark.asyncio
-async def test_api_seller_valid_buyer_invalid(client: AsyncClient, mock_extraction):
-    mock_extraction(seller_gstin="29ABCDE1234F1ZW", buyer_gstin="29ABCDE1234F1Z6")
+async def test_api_seller_valid_buyer_invalid(client: AsyncClient, mock_invoice_pipeline):
+    mock_invoice_pipeline(seller_gstin="29ABCDE1234F1ZW", buyer_gstin="29ABCDE1234F1Z6")
     response = await client.post("/api/v1/documents/doc-123/validate-gstin")
     assert response.status_code == 200
     data = response.json()
@@ -138,8 +157,8 @@ async def test_api_seller_valid_buyer_invalid(client: AsyncClient, mock_extracti
     assert "INVALID_CHECKSUM" in data["buyer_gstin"]["errors"]
 
 @pytest.mark.asyncio
-async def test_api_both_invalid(client: AsyncClient, mock_extraction):
-    mock_extraction(seller_gstin="29ABC", buyer_gstin="29ABC")
+async def test_api_both_invalid(client: AsyncClient, mock_invoice_pipeline):
+    mock_invoice_pipeline(seller_gstin="29ABC", buyer_gstin="29ABC")
     response = await client.post("/api/v1/documents/doc-123/validate-gstin")
     assert response.status_code == 200
     data = response.json()
@@ -147,11 +166,52 @@ async def test_api_both_invalid(client: AsyncClient, mock_extraction):
     assert data["buyer_gstin"]["is_valid"] is False
 
 @pytest.mark.asyncio
-async def test_api_no_mutation(client: AsyncClient, mock_extraction):
+async def test_api_no_mutation(client: AsyncClient, mock_invoice_pipeline):
     original = "  29abcde1234f1zw  "
-    mock_extraction(seller_gstin=original, buyer_gstin=None)
+    mock_invoice_pipeline(seller_gstin=original, buyer_gstin=None)
     response = await client.post("/api/v1/documents/doc-123/validate-gstin")
     assert response.status_code == 200
     data = response.json()
     assert data["seller_gstin"]["gstin"] == original
     assert data["seller_gstin"]["normalized_gstin"] == "29ABCDE1234F1ZW"
+
+# ===========================================================================
+# REGRESSION: Non-invoice classification → validation rejected
+# ===========================================================================
+@pytest.mark.asyncio
+async def test_api_non_invoice_rejects_validation(client: AsyncClient, monkeypatch):
+    """A RECEIPT document must be rejected by the validate-gstin endpoint."""
+    from app.schemas.classification import ClassificationResult, DocumentType
+
+    def _classify_receipt(self, doc_id):
+        return ClassificationResult(
+            document_id=doc_id,
+            document_type=DocumentType.RECEIPT,
+            confidence=0.90,
+            signals=["RECEIPT"]
+        )
+
+    monkeypatch.setattr(
+        "app.services.classification_service.ClassificationService.classify_document",
+        _classify_receipt
+    )
+
+    response = await client.post("/api/v1/documents/receipt-doc/validate-gstin")
+    assert response.status_code == 400
+    assert "only available for documents classified as Invoice" in response.json()["detail"]
+
+# ===========================================================================
+# REGRESSION: Invoice + missing GSTIN → proceeds with MISSING_GSTIN
+# ===========================================================================
+@pytest.mark.asyncio
+async def test_api_invoice_missing_gstin_not_rejected(client: AsyncClient, mock_invoice_pipeline):
+    """An INVOICE with no GSTIN at all must proceed and report MISSING_GSTIN, not 400."""
+    mock_invoice_pipeline(seller_gstin=None, buyer_gstin=None)
+    response = await client.post("/api/v1/documents/inv-no-gstin/validate-gstin")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["seller_gstin"]["is_valid"] is False
+    assert "MISSING_GSTIN" in data["seller_gstin"]["errors"]
+    assert data["buyer_gstin"]["is_valid"] is False
+    assert "MISSING_GSTIN" in data["buyer_gstin"]["errors"]
+
