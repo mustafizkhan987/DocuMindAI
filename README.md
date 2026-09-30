@@ -5,7 +5,7 @@
 [![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://developer.android.com)
 [![Backend](https://img.shields.io/badge/Backend-FastAPI-009688.svg)](https://fastapi.tiangolo.com)
 [![Language](https://img.shields.io/badge/Language-Kotlin%20%7C%20Python-blue.svg)](https://kotlinlang.org)
-[![Status](https://img.shields.io/badge/Status-Phase%201%20%E2%80%94%20Foundation-yellow.svg)](PROJECT_STATUS.md)
+[![Status](https://img.shields.io/badge/Status-Phase%202%20%E2%80%94%20Document%20Pipeline-yellow.svg)](PROJECT_STATUS.md)
 
 ---
 
@@ -124,8 +124,7 @@ The primary differentiator is **India-specific invoice intelligence**:
 - Invoice
 - Receipt
 - Purchase Order
-- Quotation
-- Utility Bill
+- Bill
 - Other
 
 ### Future
@@ -155,7 +154,7 @@ The primary differentiator is **India-specific invoice intelligence**:
 | Framework | FastAPI |
 | Server | Uvicorn |
 | Validation | Pydantic v2 |
-| ORM | SQLAlchemy / SQLModel |
+| ORM | SQLAlchemy |
 
 ### Database
 | Component | Technology |
@@ -166,7 +165,7 @@ The primary differentiator is **India-specific invoice intelligence**:
 ### AI / ML
 | Component | Technology |
 |-----------|-----------|
-| OCR | PaddleOCR |
+| OCR | EasyOCR |
 | Image Processing | OpenCV |
 | ML | scikit-learn, XGBoost |
 | Anomaly Detection | Isolation Forest |
@@ -185,7 +184,9 @@ The primary differentiator is **India-specific invoice intelligence**:
 
 ---
 
-## Architecture
+## Target Architecture
+
+*(Note: This represents the future state. Current implementation is Upload → Preprocessing → OCR → Classification. Invoice Extraction, GST validation, Mathematical validation, Duplicate detection, Analytics, RAG, and Q&A are future roadmap capabilities.)*
 
 ```
                     ANDROID APP
@@ -277,8 +278,8 @@ DocuMindAI/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/mustafizkhan987/DocuMind-AI.git
-cd DocuMind-AI
+git clone https://github.com/mustafizkhan987/DocuMindAI.git
+cd DocuMindAI
 
 # 2. Create a Python virtual environment
 cd backend
@@ -351,7 +352,7 @@ pytest tests/ -v
 
 ## API Endpoints
 
-### Current (Task 1 & Task 2)
+### Current Implemented Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -360,17 +361,16 @@ pytest tests/ -v
 | GET | `/api/v1/health` | Versioned API health check with DB status |
 | GET | `/docs` | Swagger UI |
 | GET | `/redoc` | ReDoc UI |
+| POST | `/api/v1/documents/upload` | Upload document (Task 5) |
+| POST | `/api/v1/documents/{document_id}/preprocess` | Preprocess for OCR (Task 6) |
+| POST | `/api/v1/documents/{document_id}/ocr` | Run OCR (Task 7) |
+| POST | `/api/v1/documents/{document_id}/classify` | Classify document type (Task 8) |
 
 ### Planned (Future Tasks)
 
 | Method | Endpoint | Task | Description |
 |--------|----------|------|-------------|
-| POST | `/api/v1/documents/upload` | Task 5 | Upload document |
-| GET | `/api/v1/documents/{id}` | Task 5 | Get document |
-| POST | `/api/v1/documents/{id}/preprocess` | Task 6 | Preprocess for OCR |
-| POST | `/api/v1/documents/{id}/ocr` | Task 7 | Run OCR |
-| POST | `/api/v1/documents/{id}/classify` | Task 8 | Classify document type |
-| POST | `/api/v1/extract/invoice` | Task 9 | Extract invoice fields |
+| POST | `/api/v1/documents/{document_id}/extract` | Task 9 | Extract invoice fields |
 | POST | `/api/v1/validate/gstin` | Task 11 | Validate GSTIN |
 | GET | `/api/v1/documents/history` | Task 17 | Document history |
 | GET | `/api/v1/analytics/vendors` | Task 20 | Vendor analytics |
@@ -414,14 +414,17 @@ DocuMind AI processes sensitive business documents. Key security principles:
 
 See [PROJECT_STATUS.md](PROJECT_STATUS.md) for the latest project status.
 
-**Currently working:**
+**Currently working (Tasks 1–8):**
 - `GET /` — API root
 - `GET /health` — Base health check
 - `GET /api/v1/health` — Versioned API health check with DB status
 - `/docs` — Swagger UI
 - `/redoc` — ReDoc UI
-- Android Compose Navigation (Home, Documents, Settings, Overview screens)
-- Android MVVM Architecture (ViewModel, Repository, StateFlow)
+- `POST /api/v1/documents/upload` — Upload document
+- `POST /api/v1/documents/{document_id}/preprocess` — Image preprocessing
+- `POST /api/v1/documents/{document_id}/ocr` — Raw OCR text extraction
+- `POST /api/v1/documents/{document_id}/classify` — Document classification
+- Android Application — Professional UI, Compose Navigation, MVVM Architecture
 
 ---
 

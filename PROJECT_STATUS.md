@@ -124,19 +124,24 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 | API Root | ✅ Working | `GET /` |
 | Health Check | ✅ Working | `GET /health` |
 | Versioned Health Check | ✅ Working | `GET /api/v1/health` |
+| Document Upload | ✅ Working | `POST /api/v1/documents/upload` |
+| Image Preprocessing | ✅ Working | `POST /api/v1/documents/{document_id}/preprocess` |
+| OCR (EasyOCR) | ✅ Working | `POST /api/v1/documents/{document_id}/ocr` |
+| Document Classification | ✅ Working | `POST /api/v1/documents/{document_id}/classify` |
+| Android Application & Navigation | ✅ Working | N/A |
 | Swagger UI | ✅ Working | `/docs` |
 | ReDoc UI | ✅ Working | `/redoc` |
-| Android Foundation Screen | ✅ Working | N/A |
-| Pydantic Settings Config | ✅ Working | Internal Infrastructure |
-| SQLAlchemy ORM Base | ✅ Working | Internal Infrastructure |
-| Centralized Exceptions | ✅ Working | Internal Infrastructure |
 | Docker Compose Setup | ✅ Working | `docker-compose.yml` |
 
 ---
 
 ## Known Issues
 
-*None at this stage.*
+- The Android upload picker simulates uploads using a mock document ID (`mock_doc_id_12345`).
+- Android processing steps use hardcoded UI delays to simulate pipeline progress.
+- Android document extraction results display mocked demo placeholders.
+- Actual backend API endpoints (Retrofit) are not yet live-wired to the Android interface.
+- Device camera API is not yet implemented.
 
 ---
 
