@@ -5,7 +5,7 @@
 [![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://developer.android.com)
 [![Backend](https://img.shields.io/badge/Backend-FastAPI-009688.svg)](https://fastapi.tiangolo.com)
 [![Language](https://img.shields.io/badge/Language-Kotlin%20%7C%20Python-blue.svg)](https://kotlinlang.org)
-[![Status](https://img.shields.io/badge/Status-Phase%202%20%E2%80%94%20Document%20Pipeline-yellow.svg)](PROJECT_STATUS.md)
+[![Status](https://img.shields.io/badge/Status-Phase%203%20%E2%80%94%20Advanced%20Intelligence-blue.svg)](PROJECT_STATUS.md)
 
 ---
 
@@ -15,7 +15,7 @@ DocuMind AI is an Android-first intelligent document and invoice processing plat
 
 The platform goes far beyond simple OCR scanning. It **understands** documents, **extracts** structured information, **verifies** GST compliance, **detects** issues, and **explains** every finding in plain language.
 
-*(Currently implemented: Document Upload Pipeline, Image Preprocessing, OCR Extraction, and Classification. Invoice Extraction is scheduled for the upcoming task.)*
+*(Currently implemented: Full Phase 2 Invoice Intelligence Pipeline, including Document Upload, Image Preprocessing, OCR (EasyOCR), LLM Extraction, Canonical Schema, GSTIN Validation, State Detection, Tax-Type Verification, Mathematical Consistency checking, and Explainable AI Results.)*
 
 ```
 Camera Photo / Image / PDF

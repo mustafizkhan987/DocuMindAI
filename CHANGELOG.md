@@ -6,6 +6,19 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.15.0] — 2026-09-30
+
+### Task 15: Phase 2 Final Integration & Explainable Intelligence
+#### Added
+- **Unified Intelligence Result**: Created `InvoiceIntelligenceResult` schema representing the holistic state of a processed document across all checks.
+- **Explainability Layer**: Added `IntelligenceIssue` to provide clear, actionable insights (category, field, expected vs actual, explanations, and recommendations).
+- **Intelligence Orchestrator**: Developed `InvoiceIntelligenceService` to unify Classification, Extraction, GSTIN Validation, State Detection, Tax-Type Validation, and Mathematical Validation.
+- **Deterministic Aggregation**: Designed an aggregation engine to cleanly map multiple underlying issues to an overarching `CONSISTENT`, `REVIEW_REQUIRED`, or `MISMATCH` state.
+- **API Endpoint**: `POST /api/v1/documents/{document_id}/intelligence`.
+- **Phase 2 Completion**: End-to-end local invoice pipeline successfully integrated, achieving deterministic rules-based validation over LLM-extracted data without external dependencies. 
+
+---
+
 ## [0.14.0] — 2026-09-30
 
 ### Task 14: Invoice Mathematical Validation

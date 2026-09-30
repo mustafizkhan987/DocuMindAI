@@ -176,3 +176,16 @@ async def validate_math(document_id: str):
     invoice = extraction_service.get_extraction_result(document_id)
 
     return math_validation_service.validate(invoice)
+
+from app.services.invoice_intelligence_service import invoice_intelligence_service
+from app.schemas.invoice_intelligence import InvoiceIntelligenceResult
+
+@router.post("/{document_id}/intelligence", response_model=InvoiceIntelligenceResult)
+async def generate_invoice_intelligence(document_id: str):
+    """
+    Run the full Phase 2 document pipeline (assuming pre-processing, OCR, 
+    classification, and extraction have occurred or will be orchestrated).
+    Returns a unified, explainable result.
+    """
+    return invoice_intelligence_service.generate_intelligence(document_id)
+
