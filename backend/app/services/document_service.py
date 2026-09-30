@@ -64,4 +64,17 @@ class DocumentService:
             size_bytes=size_bytes,
         )
 
+    def get_document_path_and_mime_type(self, document_id: str) -> tuple[Path, str]:
+        storage_dir = Path(settings.STORAGE_DIR)
+        
+        for mime_type, extension in ALLOWED_MIME_TYPES.items():
+            path = storage_dir / f"{document_id}{extension}"
+            if path.exists():
+                return path, mime_type
+                
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Document {document_id} not found"
+        )
+
 document_service = DocumentService()

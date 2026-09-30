@@ -31,6 +31,7 @@ class Settings(BaseSettings):
     # Storage
     MAX_UPLOAD_SIZE_MB: int = 10
     STORAGE_DIR: str = "storage/documents"
+    PROCESSED_DIR: str = "storage/processed"
 
     # Logging
     LOG_LEVEL: str = "INFO"
