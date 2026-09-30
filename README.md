@@ -412,10 +412,12 @@ See [PROJECT_STATUS.md](PROJECT_STATUS.md) for the latest project status.
 
 **Currently working:**
 - `GET /` — API root
-- `GET /health` — Health check
+- `GET /health` — Base health check
+- `GET /api/v1/health` — Versioned API health check with DB status
 - `/docs` — Swagger UI
 - `/redoc` — ReDoc UI
-- Android foundation screen (Task 3 — in queue)
+- Android Compose Navigation (Home, Documents, Settings, Overview screens)
+- Android MVVM Architecture (ViewModel, Repository, StateFlow)
 
 ---
 
