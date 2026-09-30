@@ -57,9 +57,22 @@ None
 - Uses `document_id` to resolve files via internal paths (`backend/storage/processed`) rather than accepting arbitrary file paths from clients.
 
 ## Testing Performed
-### Test 1
-Command: `pytest backend/tests/ -v`
-Result: PASSED (28 passed in 65.27s). Verified missing document handling, mocked success response, and a full integration path initializing the neural network and testing the OCR logic natively on a dynamically generated test image.
+### OCR Verification Test
+A dedicated integration test validates that `EasyOCR` accurately reads a synthetic image containing typical invoice data.
+
+Command: `pytest backend/tests/test_ocr.py::test_ocr_success_integration -v`
+Result: PASSED.
+
+The test generates a synthetic image containing:
+- DocuMind AI
+- Invoice Number: INV-1001
+- GSTIN: 29ABCDE1234F1Z5
+- Total: 1180.00
+
+The actual EasyOCR engine runs without any mocking, and accurately detects the keywords `DocuMind`, `INV_1001` or `INV-1001`, and the GSTIN `29ABCDE1234F1Z5`.
+
+**Note on Download Requirements**:
+On the first run, `EasyOCR` requires internet access to download its character recognition models (e.g. `craft_mlt_25k.pth` and `english_g2.pth`) to `~/.EasyOCR/model`. Subsequent runs and unit tests will use the cached models natively.
 
 ## OCR Engine Decision
 

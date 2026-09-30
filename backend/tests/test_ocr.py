@@ -28,9 +28,11 @@ def mock_processed_image(tmp_path):
     img_path = tmp_path / "processed" / f"{doc_id}_page_1.png"
     
     # Create an image with some text
-    img = np.ones((200, 400, 3), dtype=np.uint8) * 255
-    cv2.putText(img, "DocuMind AI Invoice", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-    cv2.putText(img, "Total: 1180.00", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+    img = np.ones((300, 500, 3), dtype=np.uint8) * 255
+    cv2.putText(img, "DocuMind AI", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+    cv2.putText(img, "Invoice Number: INV-1001", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+    cv2.putText(img, "GSTIN: 29ABCDE1234F1Z5", (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+    cv2.putText(img, "Total: 1180.00", (10, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
     cv2.imwrite(str(img_path), img)
     
     return doc_id
@@ -87,5 +89,11 @@ async def test_ocr_success_integration(client: AsyncClient, mock_processed_image
     
     page = data["pages"][0]
     assert page["page_number"] == 1
-    assert "DocuMind" in page["text"] or "Invoice" in page["text"]
+    
+    # Verify the OCR actually extracted the text from the synthetic image
+    assert "DocuMind" in page["text"]
+    assert "INV_1001" in page["text"] or "INV-1001" in page["text"]
+    assert "29ABCDE1234F1Z5" in page["text"]
+    
     assert page["confidence"] is not None
+    assert page["confidence"] > 0.0
