@@ -425,3 +425,4 @@ MIT License — see LICENSE file for details.
 ---
 
 *DocuMind AI — Understand → Extract → Verify → Explain → Act*
+
