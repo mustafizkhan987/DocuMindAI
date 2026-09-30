@@ -1,14 +1,15 @@
 from typing import List, Optional
 from pydantic import BaseModel, Field
+from decimal import Decimal
 
 class LineItem(BaseModel):
     description: Optional[str] = None
-    quantity: Optional[float] = None
-    unit_price: Optional[float] = None
-    taxable_amount: Optional[float] = None
-    tax_rate: Optional[float] = None
-    tax_amount: Optional[float] = None
-    total: Optional[float] = None
+    quantity: Optional[Decimal] = None
+    unit_price: Optional[Decimal] = None
+    taxable_amount: Optional[Decimal] = None
+    tax_rate: Optional[Decimal] = None
+    tax_amount: Optional[Decimal] = None
+    total: Optional[Decimal] = None
 
 class InvoiceExtractionResult(BaseModel):
     document_id: str
@@ -20,10 +21,10 @@ class InvoiceExtractionResult(BaseModel):
     buyer_name: Optional[str] = None
     buyer_gstin: Optional[str] = None
     buyer_address: Optional[str] = None
-    taxable_amount: Optional[float] = None
-    cgst: Optional[float] = None
-    sgst: Optional[float] = None
-    igst: Optional[float] = None
-    total_tax: Optional[float] = None
-    grand_total: Optional[float] = None
+    taxable_amount: Optional[Decimal] = None
+    cgst: Optional[Decimal] = None
+    sgst: Optional[Decimal] = None
+    igst: Optional[Decimal] = None
+    total_tax: Optional[Decimal] = None
+    grand_total: Optional[Decimal] = None
     line_items: Optional[List[LineItem]] = Field(default_factory=list)

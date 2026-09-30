@@ -22,6 +22,12 @@ class ExtractionService:
         return d
         
     def extract_invoice(self, document_id: str) -> InvoiceExtractionResult:
+        if not document_id or "/" in document_id or "\\" in document_id or ".." in document_id:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid document ID format."
+            )
+
         # 1. Check if classification exists and is INVOICE.
         # We invoke classify_document which automatically checks for OCR result
         try:
@@ -60,18 +66,20 @@ class ExtractionService:
         # 4. Save to local storage
         save_path = self.extraction_dir / f"{document_id}.json"
         with open(save_path, "w", encoding="utf-8") as f:
-            json.dump(result.model_dump(), f, indent=2)
+            f.write(result.model_dump_json(indent=2))
             
         return result
 
     def _perform_extraction(self, text: str) -> dict:
         data = {}
         
-        def parse_amount(val_str: str) -> float:
+        from decimal import Decimal, InvalidOperation
+        
+        def parse_amount(val_str: str) -> Decimal:
             clean = re.sub(r'[^\d.]', '', val_str)
             try:
-                return float(clean)
-            except ValueError:
+                return Decimal(clean)
+            except (ValueError, InvalidOperation):
                 return None
 
         # Invoice Number
