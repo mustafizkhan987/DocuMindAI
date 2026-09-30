@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Sample backup rules file; see:
+   https://developer.android.com/guide/topics/data/autobackup
+-->
+<full-backup-content>
+    <!-- Exclude sensitive data from auto-backup -->
+    <exclude domain="sharedpref" path="user_auth.xml"/>
+    <exclude domain="database" path="."/>
+</full-backup-content>

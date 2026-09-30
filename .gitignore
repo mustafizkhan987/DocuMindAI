@@ -1,0 +1,160 @@
+# =============================================================================
+# DocuMind AI — .gitignore
+# =============================================================================
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Environment & Secrets
+# ──────────────────────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Python
+# ──────────────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+MANIFEST
+venv/
+.venv/
+env/
+ENV/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.pytest_cache/
+htmlcov/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+.pyre/
+*.pyo
+Pipfile.lock
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Android / Kotlin
+# ──────────────────────────────────────────────────────────────────────────────
+*.iml
+.gradle/
+local.properties
+.idea/
+.DS_Store
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+release/
+proguard/
+
+# Kotlin/Android specific
+android/DocuMind/local.properties
+android/DocuMind/.gradle/
+android/DocuMind/build/
+android/DocuMind/app/build/
+android/DocuMind/app/release/
+
+# ──────────────────────────────────────────────────────────────────────────────
+# IDE / Editor
+# ──────────────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+.atom/
+nbproject/
+
+# ──────────────────────────────────────────────────────────────────────────────
+# OS Generated
+# ──────────────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Docker
+# ──────────────────────────────────────────────────────────────────────────────
+docker-compose.override.yml
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Node (if any tooling)
+# ──────────────────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Data — Raw documents must NEVER be committed
+# ──────────────────────────────────────────────────────────────────────────────
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/labeled/*
+!data/labeled/.gitkeep
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Uploaded Files / Media
+# ──────────────────────────────────────────────────────────────────────────────
+uploads/
+*.pdf
+*.jpg
+*.jpeg
+*.png
+*.tiff
+*.tif
+!docs/**/*.png
+!docs/**/*.jpg
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Misc
+# ──────────────────────────────────────────────────────────────────────────────
+*.bak
+*.tmp
+*.temp
+.history/
