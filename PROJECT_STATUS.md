@@ -13,7 +13,7 @@
 
 ## Current Task
 
-**Task 10 — Canonical Structured Invoice Schema** ✅ COMPLETED
+**Task 11 — GSTIN Validation** ✅ COMPLETED
 
 ---
 
@@ -73,6 +73,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 - [x] Task 8.5B: Final UI / Integration Correction
 - [x] Task 9: Invoice Information Extraction
 - [x] Task 10: Canonical Structured Invoice Schema
+- [x] Task 11: GSTIN Validation
 
 ---
 
@@ -166,7 +167,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 ## Next Task
 
-**Task 11 — GSTIN Validation**
+**Task 12 — State Detection**
 
 ---
 

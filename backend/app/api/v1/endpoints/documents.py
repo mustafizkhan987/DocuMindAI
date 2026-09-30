@@ -55,3 +55,25 @@ async def extract_invoice(document_id: str):
     """
     return extraction_service.extract_invoice(document_id)
 
+from app.services.gstin_validation_service import gstin_validation_service
+from app.schemas.validation import DocumentGSTINValidationResponse
+
+@router.post("/{document_id}/validate-gstin", response_model=DocumentGSTINValidationResponse)
+async def validate_gstin(document_id: str):
+    """
+    Validate GSTIN format and checksum for seller and buyer from the extracted invoice.
+    Requires extraction to have been completed.
+    Note: This performs structural/checksum validation, not government registration verification.
+    """
+    invoice = extraction_service.get_extraction_result(document_id)
+    
+    seller_gstin = invoice.seller.gstin if invoice.seller else None
+    buyer_gstin = invoice.buyer.gstin if invoice.buyer else None
+    
+    return DocumentGSTINValidationResponse(
+        document_id=document_id,
+        seller_gstin=gstin_validation_service.validate(seller_gstin),
+        buyer_gstin=gstin_validation_service.validate(buyer_gstin)
+    )
+
+

@@ -30,7 +30,9 @@ Document Classification
          ↓
 Canonical Invoice Schema
          ↓
-GST / Financial Validation
+  GSTIN Validation
+         ↓
+State Detection (Future)
          ↓
     Issue Detection
          ↓
@@ -188,7 +190,7 @@ The primary differentiator is **India-specific invoice intelligence**:
 
 ## Target Architecture
 
-*(Note: This represents the future state. Current implementation is Upload → Preprocessing → OCR → Classification → Invoice Extraction → Canonical Invoice Schema. GST validation, Mathematical validation, Duplicate detection, Analytics, RAG, and Q&A are future roadmap capabilities.)*
+*(Note: This represents the future state. Current implementation is Upload → Preprocessing → OCR → Classification → Invoice Extraction → Canonical Invoice Schema → GSTIN Validation. State detection, Mathematical validation, Duplicate detection, Analytics, RAG, and Q&A are future roadmap capabilities.)*
 
 ```
                     ANDROID APP
@@ -370,11 +372,12 @@ pytest tests/ -v
 
 | POST | `/api/v1/documents/{document_id}/extract` | Extract invoice fields (Task 9) |
 
+| POST | `/api/v1/documents/{document_id}/validate-gstin` | Validate GSTIN format & checksum (Task 11) |
+
 ### Planned (Future Tasks)
 
 | Method | Endpoint | Task | Description |
 |--------|----------|------|-------------|
-| POST | `/api/v1/validate/gstin` | Task 11 | Validate GSTIN |
 | GET | `/api/v1/documents/history` | Task 17 | Document history |
 | GET | `/api/v1/analytics/vendors` | Task 20 | Vendor analytics |
 | POST | `/api/v1/search` | Task 27 | Natural-language search |
@@ -417,7 +420,7 @@ DocuMind AI processes sensitive business documents. Key security principles:
 
 See [PROJECT_STATUS.md](PROJECT_STATUS.md) for the latest project status.
 
-**Currently working (Tasks 1–10):**
+**Currently working (Tasks 1–11):**
 - `GET /` — API root
 - `GET /health` — Base health check
 - `GET /api/v1/health` — Versioned API health check with DB status
@@ -428,6 +431,7 @@ See [PROJECT_STATUS.md](PROJECT_STATUS.md) for the latest project status.
 - `POST /api/v1/documents/{document_id}/ocr` — Raw OCR text extraction
 - `POST /api/v1/documents/{document_id}/classify` — Document classification
 - `POST /api/v1/documents/{document_id}/extract` — Invoice information extraction (Canonical Schema)
+- `POST /api/v1/documents/{document_id}/validate-gstin` — GSTIN structural and checksum validation
 - Android Application — Professional UI, Compose Navigation, MVVM Architecture
 
 ---

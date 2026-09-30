@@ -22,6 +22,16 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.11.0] — 2026-09-30
+
+### Task 11: GSTIN Validation
+#### Added
+- **Validation Engine**: Introduced `GSTINValidationService` to execute strict deterministic checks for GSTIN format, structure, and Modulo 36 checksum rules.
+- **Validation Endpoint**: Added `POST /api/v1/documents/{document_id}/validate-gstin` endpoint to independently evaluate the canonical extraction of seller and buyer GSTINs.
+- **Validation Schemas**: Structured `GSTINValidationResult` and `DocumentGSTINValidationResponse` schemas separating validations from core extraction.
+
+---
+
 ## [0.10.0] — 2026-09-30
 
 ### Task 10: Canonical Structured Invoice Schema
