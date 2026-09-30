@@ -21,3 +21,14 @@ async def preprocess_document(document_id: str):
     """
     path, mime_type = document_service.get_document_path_and_mime_type(document_id)
     return preprocessing_service.process_document(document_id, str(path), mime_type)
+
+from app.services.ocr_service import ocr_service
+from app.schemas.ocr import OCRDocumentResult
+
+@router.post("/{document_id}/ocr", response_model=OCRDocumentResult)
+async def extract_text(document_id: str):
+    """
+    Extract raw text from a preprocessed document using OCR.
+    Requires preprocessing to have been completed.
+    """
+    return ocr_service.extract_text(document_id)

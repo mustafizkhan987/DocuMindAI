@@ -1,19 +1,19 @@
 # Project Status
 
 > **Last Updated:** 2026-09-30
-> **Updated By:** Task 5 — Document Upload
+> **Updated By:** Task 7 — OCR Engine
 
 ---
 
 ## Current Phase
 
-**Phase 1 — Foundation**
+**Phase 2 — Document Pipeline**
 
 ---
 
 ## Current Task
 
-**Task 5 — Document Upload** ✅ COMPLETED
+**Task 7 — OCR Engine** ✅ COMPLETED
 
 ---
 
@@ -21,7 +21,7 @@
 
 ```
 Phase 1 — Foundation          [██████████] 100% (Task 4 of 4 complete)
-Phase 2 — Document Pipeline   [██░░░░░░░░]  20% (Task 5 complete)
+Phase 2 — Document Pipeline   [██████░░░░]  60% (Task 7 complete)
 Phase 3 — Invoice Intelligence [░░░░░░░░░░]  0%
 Phase 4 — Persistence         [░░░░░░░░░░]   0%
 Phase 5 — Intelligence        [░░░░░░░░░░]   0%
@@ -66,12 +66,14 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 - [x] Android document picker & upload flow
 - [x] FastAPI multipart upload endpoint
 - [x] Secure local development storage
+- [x] Task 6: Image Preprocessing pipeline
+- [x] Task 7: OCR Engine using EasyOCR
 
 ---
 
 ## In Progress
 
-*None — Task 5 is complete. Task 6 is next.*
+*None — Task 7 is complete. Task 8 is next.*
 
 ---
 
@@ -79,8 +81,6 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 | Task | Name |
 |------|------|
-| Task 6 | Image Preprocessing |
-| Task 7 | OCR Pipeline |
 | Task 8 | Document Classification |
 | Task 9 | Invoice Extraction |
 | Task 10 | Structured Invoice Schema |
@@ -157,7 +157,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 ## Next Task
 
-**Task 6 — Image Preprocessing**
+**Task 8 — Document Classification**
 
 ---
 

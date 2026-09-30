@@ -6,6 +6,28 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.7.0] — 2026-09-30
+
+### Task 7 — OCR Engine
+
+#### Added
+- **OCR Service**: Implemented `OCRService` using `easyocr` to extract raw text and confidence scores.
+- **OCR API Endpoint**: Added `POST /api/v1/documents/{document_id}/ocr` to trigger extraction on preprocessed images.
+- **OCR Tests**: Added mocking and integration tests for OCR processing in `backend/tests/test_ocr.py`.
+
+---
+
+## [0.6.0] — 2026-09-30
+
+### Task 6 — Image Preprocessing
+
+#### Added
+- **Preprocessing Pipeline**: Developed `PreprocessingService` utilizing `PyMuPDF` (for PDF rendering) and `OpenCV` (for grayscale, denoising, and adaptive thresholding).
+- **Preprocessing Endpoint**: Added `POST /api/v1/documents/{document_id}/preprocess`.
+- **Security**: Added isolated `backend/storage/processed/` directory.
+
+---
+
 ## [0.5.0] — 2026-09-30
 
 ### Task 5 — Document Upload
