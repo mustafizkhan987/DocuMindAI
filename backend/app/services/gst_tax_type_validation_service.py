@@ -126,8 +126,7 @@ class GSTTaxTypeValidationService:
                 is_consistent=False,
                 status=TaxTypeValidationStatus.REVIEW_REQUIRED,
                 warnings=[
-                    "All extracted tax amounts are zero or missing. "
-                    "This may indicate an exempt supply or an extraction gap."
+                    "All-zero extracted tax components provide insufficient evidence for deterministic tax-type validation and require review."
                 ],
             )
 
