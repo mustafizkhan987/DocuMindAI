@@ -22,7 +22,19 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [0.8.5] — 2026-09-30
+## [0.9.0] — 2026-09-30
+
+### Task 9: Invoice Information Extraction
+#### Added
+- **Invoice Schema**: Created `InvoiceExtractionResult` and `LineItem` models in `backend/app/schemas/invoice.py`.
+- **Extraction Service**: Implemented deterministic heuristic-based regex extraction in `backend/app/services/extraction_service.py` to extract 13+ fields including GSTINs, dates, and amounts.
+- **Extraction API**: Exposed `POST /api/v1/documents/{document_id}/extract`.
+- **Classification Gate**: Extraction is safely gated to only process documents that return a DocumentType.INVOICE classification.
+- **Extraction Storage**: Locally persists JSON extraction results in `storage/extraction_results/`.
+
+---
+
+## [0.8.5B] — 2026-09-30
 
 ### Task 8.5 — Professional Android UI & Trust-Centric UX
 

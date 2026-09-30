@@ -43,3 +43,15 @@ async def classify_document(document_id: str):
     Requires OCR to have been completed.
     """
     return classification_service.classify_document(document_id)
+
+from app.services.extraction_service import extraction_service
+from app.schemas.invoice import InvoiceExtractionResult
+
+@router.post("/{document_id}/extract", response_model=InvoiceExtractionResult)
+async def extract_invoice(document_id: str):
+    """
+    Extract structured invoice information from an OCR'd and classified document.
+    Requires classification result to be INVOICE.
+    """
+    return extraction_service.extract_invoice(document_id)
+

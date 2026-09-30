@@ -13,7 +13,7 @@
 
 ## Current Task
 
-**Task 8.5B — Final UI / Integration Correction** ✅ COMPLETED
+**Task 9 — Invoice Information Extraction** ✅ COMPLETED
 
 ---
 
@@ -71,6 +71,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 - [x] Task 8: Document Classification
 - [x] Task 8.5: Professional Android UI
 - [x] Task 8.5B: Final UI / Integration Correction
+- [x] Task 9: Invoice Information Extraction
 
 ---
 
@@ -164,7 +165,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 ## Next Task
 
-**Task 9 — Invoice Information Extraction**
+**Task 10 — Structured Invoice Schema**
 
 ---
 
