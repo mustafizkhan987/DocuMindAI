@@ -120,3 +120,37 @@ async def detect_state(document_id: str):
         buyer=buyer_state,
         jurisdiction_relationship=relationship
     )
+
+from app.services.gst_tax_type_validation_service import gst_tax_type_validation_service
+from app.schemas.tax_type_validation import GSTTaxTypeValidationResult
+
+@router.post("/{document_id}/validate-tax-type", response_model=GSTTaxTypeValidationResult)
+async def validate_tax_type(document_id: str):
+    """
+    Validate the GST tax component type (CGST+SGST vs IGST) against the
+    seller/buyer jurisdiction relationship.
+    Requires classification as INVOICE and extraction to have been completed.
+    Does NOT validate tax rates, amounts, or invoice arithmetic.
+    """
+    # Explicit invoice classification gate
+    classification_result = classification_service.classify_document(document_id)
+    if classification_result.document_type != DocumentType.INVOICE:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Tax type validation is only available for documents classified as Invoice."
+        )
+
+    invoice = extraction_service.get_extraction_result(document_id)
+
+    # Obtain jurisdiction via Task 12
+    seller_gstin = invoice.seller.gstin if invoice.seller else None
+    buyer_gstin = invoice.buyer.gstin if invoice.buyer else None
+    seller_state = state_detection_service.detect_state(seller_gstin)
+    buyer_state = state_detection_service.detect_state(buyer_gstin)
+    relationship = state_detection_service.compare_jurisdictions(seller_state, buyer_state)
+
+    return gst_tax_type_validation_service.validate(
+        document_id=document_id,
+        jurisdiction=relationship,
+        financials=invoice.financials,
+    )

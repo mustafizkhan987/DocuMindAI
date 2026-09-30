@@ -6,6 +6,17 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.13.0] — 2026-09-30
+
+### Task 13: GST Tax Type Validation
+#### Added
+- **Tax Type Validation Service**: Deterministic comparison of expected tax structure (CGST+SGST vs IGST) against extracted tax components based on seller/buyer jurisdiction.
+- **Result Model**: `GSTTaxTypeValidationResult` with `ExpectedTaxType` and `TaxTypeValidationStatus` enums, descriptive errors/warnings, and `ActualTaxComponents` snapshot.
+- **Validation Endpoint**: Added `POST /api/v1/documents/{document_id}/validate-tax-type` with explicit INVOICE classification gate.
+- **None vs Zero Handling**: Careful distinction between missing fields (`None`) and explicitly zero fields (`Decimal("0")`).
+
+---
+
 ## [0.8.6] — 2026-09-30
 
 ### Task 8.5B — Visual Redesign

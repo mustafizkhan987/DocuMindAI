@@ -13,7 +13,7 @@
 
 ## Current Task
 
-**Task 12 — State Detection** ✅ COMPLETED
+**Task 13 — GST Tax Type Validation** ✅ COMPLETED
 
 ---
 
@@ -75,6 +75,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 - [x] Task 10: Canonical Structured Invoice Schema
 - [x] Task 11: GSTIN Validation
 - [x] Task 12: State Detection
+- [x] Task 13: GST Tax Type Validation
 
 ---
 
@@ -168,7 +169,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 ## Next Task
 
-**Task 13 — GST Tax Type Validation**
+**Task 14 — Invoice Mathematical Validation**
 
 ---
 
