@@ -1,4 +1,4 @@
-wfrom pydantic import BaseModel, Field
+from pydantic import BaseModel, Field
 from datetime import datetime, timezone
 
 def get_utc_now():

@@ -153,8 +153,16 @@ Task 8.5 UI UX overhaul is fully completed and integrated safely without touchin
 - Removed fake setting toggles (e.g., dark mode overrides, tracking limits) that were not yet wired up.
 
 ### Remaining Limitations
-- Upload picker still simulates upload (`mock_doc_id_12345`).
 - Processing delays are hardcoded delays simulating pipeline steps.
 - Extraction results are mocked placeholders.
-- Actual backend endpoints (Task 9) need to be wired.
+- Actual backend extraction endpoints (Task 9) need to be wired.
 - Device camera API not yet implemented.
+
+### Task 8.5B Final Correction — Restored Real Upload Integration
+
+Following a documentation audit, a critical integration regression was detected where the UI redesign had simulated the upload flow using `mock_doc_id_12345`. This has been corrected.
+
+- **Task 5 Upload Integration Restored:** The `UploadScreen` now correctly integrates with `DocumentsViewModel` and uses the real Android `ActivityResultContracts.GetContent()` document picker.
+- **Mock Removed:** The hardcoded simulated navigation has been replaced with a `LaunchedEffect` that observes the real `uploadedDocument.id` returned securely from the FastAPI backend via Retrofit.
+- **Camera Stays Disabled:** The mock camera flow remains explicitly disabled in the UI with a "Camera currently unavailable" disclaimer, as camera support is not yet implemented.
+- **Build Verified:** Android project successfully built (`assembleDebug`), preserving Retrofit mappings.

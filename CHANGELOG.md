@@ -16,6 +16,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Redesigned Screens**: Rebuilt `HomeScreen`, `DocumentsScreen`, `UploadScreen`, `ProcessingScreen`, `DocumentResultScreen`, and `AboutScreen`.
 - **Removed Technical Information**: Removed all mentions of internal statuses (FastAPI, backend routes, Task names) from the user-facing interface.
 
+#### Fixed
+- **Restored Upload Integration**: Re-wired the `UploadScreen` to trigger the actual `DocumentsViewModel` upload flow developed in Task 5, restoring real `Retrofit` networking and dynamic document ID parsing.
+- **Disabled Mock UI**: Removed fake `mock_doc_id_12345` flows. The Processing screen is now exclusively triggered when the FastAPI backend confirms a successful document upload.
+
 ---
 
 ## [0.8.5] — 2026-09-30

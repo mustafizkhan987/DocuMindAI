@@ -13,7 +13,7 @@
 
 ## Current Task
 
-**Task 8.5 — Professional Android UI** ✅ COMPLETED
+**Task 8.5B — Final UI / Integration Correction** ✅ COMPLETED
 
 ---
 
@@ -70,7 +70,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 - [x] Task 7: OCR Engine using EasyOCR
 - [x] Task 8: Document Classification
 - [x] Task 8.5: Professional Android UI
-- [x] Task 8.5B: Visual Redesign
+- [x] Task 8.5B: Final UI / Integration Correction
 
 ---
 
@@ -164,7 +164,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 ## Next Task
 
-**Task 9 — Invoice Extraction**
+**Task 9 — Invoice Information Extraction**
 
 ---
 
