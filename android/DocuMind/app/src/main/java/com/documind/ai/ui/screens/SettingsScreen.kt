@@ -40,30 +40,19 @@ fun SettingsScreen(
         
         Spacer(modifier = Modifier.height(24.dp))
         
-        SectionHeader(title = "Application")
-        SettingsItem(title = "Notifications", subtitle = "Manage alerts and updates")
-        SettingsItem(title = "Appearance", subtitle = "Light, Dark, or System Default")
-        SettingsItem(title = "Language", subtitle = "English")
-        
-        Spacer(modifier = Modifier.height(16.dp))
-        
-        SectionHeader(title = "Documents")
-        SettingsItem(title = "Default document behavior", subtitle = "Auto-classify on upload")
-        SettingsItem(title = "Storage information", subtitle = "12 MB used")
-        
-        Spacer(modifier = Modifier.height(16.dp))
-        
-        SectionHeader(title = "Privacy & Security")
-        SettingsItem(title = "Privacy", subtitle = "Manage tracking and permissions")
-        SettingsItem(title = "Data handling", subtitle = "On-device processing details")
-        
-        Spacer(modifier = Modifier.height(16.dp))
-        
         SectionHeader(title = "About")
         SettingsItem(
             title = "About DocuMind AI", 
             subtitle = "Version, Terms, Privacy Policy",
             onClick = onNavigateToAbout
+        )
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        Text(
+            text = "More settings will be available in future updates.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }

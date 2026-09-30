@@ -55,11 +55,11 @@ fun HomeScreen(
         
         Spacer(modifier = Modifier.height(48.dp))
         
-        SectionHeader(title = "Recent Documents")
+        SectionHeader(title = "Recent Documents (Demo UI)")
         
         // Mocking a recent document since there's no backend connection yet
         DocumentCard(
-            title = "Invoice #INV-1001",
+            title = "Invoice #INV-1001 (Sample)",
             subtitle = "30 Sep 2026",
             amount = "₹1,180.00",
             status = "Information extracted",
@@ -69,7 +69,7 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(16.dp))
         
         DocumentCard(
-            title = "Unknown Receipt",
+            title = "Unknown Receipt (Sample)",
             subtitle = "28 Sep 2026",
             amount = null,
             status = "Review required",

@@ -79,24 +79,24 @@ fun DocumentResultScreen(
             Spacer(modifier = Modifier.height(32.dp))
             
             SectionHeader(title = "Information Found")
-            StatusBadge(text = "Extracted from document", type = StatusType.INFO)
+            StatusBadge(text = "DEMO PREVIEW: Values below are sample placeholders", type = StatusType.WARNING)
             
             Spacer(modifier = Modifier.height(16.dp))
             
-            InformationRow(label = "Invoice Number", value = "INV-1001")
-            InformationRow(label = "Invoice Date", value = "15 Sep 2026")
+            InformationRow(label = "Invoice Number", value = "INV-1001 (Sample)")
+            InformationRow(label = "Invoice Date", value = "15 Sep 2026 (Sample)")
             
             Spacer(modifier = Modifier.height(16.dp))
             SectionHeader(title = "Seller")
-            InformationRow(label = "Name", value = "ABC Technologies Pvt Ltd")
-            InformationRow(label = "GSTIN", value = "29ABCDE1234F1Z5")
+            InformationRow(label = "Name", value = "ABC Technologies Pvt Ltd (Sample)")
+            InformationRow(label = "GSTIN", value = "29ABCDE1234F1Z5 (Sample)")
             
             Spacer(modifier = Modifier.height(16.dp))
             SectionHeader(title = "Amounts")
-            InformationRow(label = "Taxable Value", value = "₹1,000.00")
-            InformationRow(label = "CGST", value = "₹90.00")
-            InformationRow(label = "SGST", value = "₹90.00")
-            InformationRow(label = "Grand Total", value = "₹1,180.00")
+            InformationRow(label = "Taxable Value", value = "₹1,000.00 (Sample)")
+            InformationRow(label = "CGST", value = "₹90.00 (Sample)")
+            InformationRow(label = "SGST", value = "₹90.00 (Sample)")
+            InformationRow(label = "Grand Total", value = "₹1,180.00 (Sample)")
             
             Spacer(modifier = Modifier.height(32.dp))
             

@@ -44,12 +44,13 @@ fun DocumentsScreen(
         OutlinedTextField(
             value = searchQuery,
             onValueChange = { searchQuery = it },
-            placeholder = { Text("Search documents") },
+            placeholder = { Text("Search documents (Not yet connected)") },
             leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),
-            singleLine = true
+            singleLine = true,
+            enabled = false
         )
         
         // Simulating Empty state for the list until backend is wired
