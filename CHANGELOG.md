@@ -6,6 +6,17 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.14.0] — 2026-09-30
+
+### Task 14: Invoice Mathematical Validation
+#### Added
+- **Mathematical Validation Service**: Performs deterministic arithmetic checks on canonical invoice financial fields.
+- **Arithmetic Checks**: Validates tax sum (`CGST + SGST + IGST == total_tax`), grand total (`taxable_amount + total_tax == grand_total`), and line item math (`quantity * unit_price == total`).
+- **Validation Result Schema**: Introduced `InvoiceMathValidationResult` with status, difference values, configurable tolerances, and detailed messaging.
+- **API Endpoint**: `POST /api/v1/documents/{document_id}/validate-math`.
+
+---
+
 ## [0.13.0] — 2026-09-30
 
 ### Task 13: GST Tax Type Validation

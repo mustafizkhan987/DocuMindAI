@@ -13,7 +13,7 @@
 
 ## Current Task
 
-**Task 13 — GST Tax Type Validation** ✅ COMPLETED
+**Task 14 — Invoice Mathematical Validation** ✅ COMPLETED
 
 ---
 
@@ -76,6 +76,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 - [x] Task 11: GSTIN Validation
 - [x] Task 12: State Detection
 - [x] Task 13: GST Tax Type Validation
+- [x] Task 14: Invoice Mathematical Validation
 
 ---
 
@@ -94,7 +95,6 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 | Task 11 | GSTIN Validation |
 | Task 12 | Seller/Buyer State Detection |
 | Task 13 | CGST/SGST/IGST Validation |
-| Task 14 | Invoice Mathematical Validation |
 | Task 15 | Explainable Validation Results |
 | Task 16 | PostgreSQL Integration |
 | Task 17 | Document History |
@@ -169,7 +169,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 ## Next Task
 
-**Task 14 — Invoice Mathematical Validation**
+**Task 15 — Explainable Validation Results**
 
 ---
 

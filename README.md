@@ -36,6 +36,7 @@ Canonical Invoice Schema
          ↓
 GST Tax Type Validation
          ↓
+Invoice Mathematical Validation
          ↓
   Explainable Results
          ↓

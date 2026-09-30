@@ -154,3 +154,25 @@ async def validate_tax_type(document_id: str):
         jurisdiction=relationship,
         financials=invoice.financials,
     )
+
+from app.services.math_validation_service import math_validation_service
+from app.schemas.math_validation import InvoiceMathValidationResult
+
+@router.post("/{document_id}/validate-math", response_model=InvoiceMathValidationResult)
+async def validate_math(document_id: str):
+    """
+    Validate deterministic arithmetic relationships within the invoice.
+    Requires classification as INVOICE and extraction to have been completed.
+    Does NOT validate tax-type rules, tax rates, or GSTINs.
+    """
+    # Explicit invoice classification gate
+    classification_result = classification_service.classify_document(document_id)
+    if classification_result.document_type != DocumentType.INVOICE:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Mathematical validation is only available for documents classified as Invoice."
+        )
+
+    invoice = extraction_service.get_extraction_result(document_id)
+
+    return math_validation_service.validate(invoice)
