@@ -6,6 +6,34 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.4.0] — 2026-09-30
+
+### Task 4 — Android ↔ Backend Connection
+
+#### Added
+- **Live Integration**:
+  - `DocumentRepositoryImpl` modified to execute live API call `getV1Health()` using Retrofit.
+  - Mapped JSON responses from FastAPI (`HealthResponseDto`) to internal domain models (`BackendHealth`).
+- **Error Handling**:
+  - Implemented error handling for network errors and non-successful HTTP responses, emitting appropriate `Result.Error` values.
+
+---
+
+## [0.3.0] — 2026-09-30
+
+### Task 3 — Android Application Foundation
+
+#### Added
+- **Compose Navigation**: `AppNavigation`, `Screen`, and `AppBottomNavigation` implemented for multi-screen routing.
+- **MVVM Architecture**: Added `HomeViewModel`, `HomeUiState`, and `Result` wrapper for state management and network abstractions.
+- **Network Layer**: Added Retrofit `DocuMindApi`, `ApiClient`, and `NetworkModule` in preparation for backend integration.
+- **UI Components**: `StatusChip`, `HomeScreen`, `DocumentsScreen`, `SettingsScreen`.
+
+#### Changed
+- Removed single-screen placeholder UI in favor of modular MVVM Compose structure.
+
+---
+
 ## [0.2.0] — 2026-09-30
 
 ### Task 2 — FastAPI Backend Foundation

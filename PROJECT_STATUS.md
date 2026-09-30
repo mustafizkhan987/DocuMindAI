@@ -1,7 +1,7 @@
 # Project Status
 
 > **Last Updated:** 2026-09-30
-> **Updated By:** Task 2 — FastAPI Backend Foundation
+> **Updated By:** Task 4 — Android ↔ Backend Connection
 
 ---
 
@@ -13,14 +13,14 @@
 
 ## Current Task
 
-**Task 2 — FastAPI Backend Foundation** ✅ COMPLETED
+**Task 4 — Android ↔ Backend Connection** ✅ COMPLETED
 
 ---
 
 ## Overall Progress
 
 ```
-Phase 1 — Foundation          [████████░░]  50% (Task 2 of 4 complete)
+Phase 1 — Foundation          [██████████] 100% (Task 4 of 4 complete)
 Phase 2 — Document Pipeline   [░░░░░░░░░░]   0%
 Phase 3 — Invoice Intelligence [░░░░░░░░░░]  0%
 Phase 4 — Persistence         [░░░░░░░░░░]   0%
@@ -61,12 +61,14 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 - [x] `CHANGELOG.md` updated
 - [x] `docs/tasks/TASK_01_PROJECT_FOUNDATION.md` created
 - [x] `docs/tasks/TASK_02_FASTAPI_BACKEND_FOUNDATION.md` created
+- [x] `docs/tasks/TASK_03_ANDROID_FOUNDATION.md` created
+- [x] `docs/tasks/TASK_04_BACKEND_CONNECTION.md` created
 
 ---
 
 ## In Progress
 
-*None — Task 2 is complete. Task 3 is next.*
+*None — Task 4 is complete. Phase 2 (Document Pipeline) begins with Task 5.*
 
 ---
 
@@ -74,8 +76,6 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 | Task | Name |
 |------|------|
-| Task 3 | Android Application Foundation |
-| Task 4 | Android ↔ Backend Connection |
 | Task 5 | Document Upload |
 | Task 6 | Image Preprocessing |
 | Task 7 | OCR Pipeline |
@@ -155,7 +155,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 ## Next Task
 
-**Task 3 — Android Application Foundation**
+**Task 5 — Document Upload**
 
 ---
 

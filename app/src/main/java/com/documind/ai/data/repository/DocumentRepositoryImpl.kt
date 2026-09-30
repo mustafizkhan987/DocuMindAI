@@ -19,20 +19,33 @@ class DocumentRepositoryImpl(
 ) : DocumentRepository {
 
     override suspend fun getBackendHealth(): Result<BackendHealth> {
-        // Task 3: Return local state (Not Connected until Task 4 live API integration)
-        return Result.Success(
-            BackendHealth(
-                isConnected = false,
-                status = "Not Connected",
-                serviceName = "DocuMind AI API",
-                version = "0.1.0",
-                databaseStatus = "Not Connected"
-            )
-        )
+        return try {
+            val response = api.getV1Health()
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) {
+                    Result.Success(
+                        BackendHealth(
+                            isConnected = body.status == "ok",
+                            status = if (body.status == "ok") "Connected" else "Status: ${body.status}",
+                            serviceName = body.service ?: "DocuMind AI API",
+                            version = body.version ?: "0.1.0",
+                            databaseStatus = body.database ?: "unknown"
+                        )
+                    )
+                } else {
+                    Result.Error(Exception("Empty response body"), "Server returned empty response")
+                }
+            } else {
+                Result.Error(Exception("HTTP error: ${response.code()}"), "Failed to connect to backend: HTTP ${response.code()}")
+            }
+        } catch (e: Exception) {
+            Result.Error(e, "Connection failed: ${e.localizedMessage}")
+        }
     }
 
     override fun getRecentDocuments(): Flow<List<Document>> = flow {
-        // Task 3: Empty list placeholder for recent documents
+        // Task 4: Empty list placeholder for recent documents for now
         emit(emptyList())
     }
 }
