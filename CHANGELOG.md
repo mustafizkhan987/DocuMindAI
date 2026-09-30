@@ -22,6 +22,16 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.10.0] — 2026-09-30
+
+### Task 10: Canonical Structured Invoice Schema
+#### Changed
+- **Schema Evolution**: Transformed `InvoiceExtractionResult` from a flat schema into a clean, nested `CanonicalInvoice` domain model incorporating `Party` and `Financials`.
+- **Extraction Pipeline**: Updated the `ExtractionService` response mapping to elegantly output the canonical nested object structure.
+- **Backward Compatibility**: Validated endpoints and tests to confirm no regressions in functionality, preserving precision with `Decimal` usage.
+
+---
+
 ## [0.9.0] — 2026-09-30
 
 ### Task 9: Invoice Information Extraction

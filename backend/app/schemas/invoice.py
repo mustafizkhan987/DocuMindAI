@@ -11,20 +11,32 @@ class LineItem(BaseModel):
     tax_amount: Optional[Decimal] = None
     total: Optional[Decimal] = None
 
-class InvoiceExtractionResult(BaseModel):
-    document_id: str
-    invoice_number: Optional[str] = None
-    invoice_date: Optional[str] = None
-    seller_name: Optional[str] = None
-    seller_gstin: Optional[str] = None
-    seller_address: Optional[str] = None
-    buyer_name: Optional[str] = None
-    buyer_gstin: Optional[str] = None
-    buyer_address: Optional[str] = None
+class Party(BaseModel):
+    name: Optional[str] = None
+    gstin: Optional[str] = None
+    address: Optional[str] = None
+
+class Financials(BaseModel):
     taxable_amount: Optional[Decimal] = None
     cgst: Optional[Decimal] = None
     sgst: Optional[Decimal] = None
     igst: Optional[Decimal] = None
     total_tax: Optional[Decimal] = None
     grand_total: Optional[Decimal] = None
-    line_items: Optional[List[LineItem]] = Field(default_factory=list)
+
+class CanonicalInvoice(BaseModel):
+    document_id: str
+    invoice_number: Optional[str] = None
+    invoice_date: Optional[str] = None
+    seller: Party = Field(default_factory=Party)
+    buyer: Party = Field(default_factory=Party)
+    financials: Financials = Field(default_factory=Financials)
+    currency: Optional[str] = None
+    payment_terms: Optional[str] = None
+    due_date: Optional[str] = None
+    contact: Optional[str] = None
+    place_of_supply: Optional[str] = None
+    line_items: List[LineItem] = Field(default_factory=list)
+
+# Alias for backward compatibility in internal references
+InvoiceExtractionResult = CanonicalInvoice

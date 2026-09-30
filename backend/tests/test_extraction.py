@@ -64,16 +64,16 @@ async def test_extract_invoice_success(client: AsyncClient, ocr_results_dir):
     assert data["document_id"] == doc_id
     assert data["invoice_number"] == "INV-1001"
     assert data["invoice_date"] == "28/09/2026"
-    assert data["seller_name"] == "ABC Traders"
-    assert data["seller_gstin"] == "29ABCDE1234F1Z5"
-    assert data["buyer_name"] == "XYZ Enterprises"
-    assert data["buyer_gstin"] == "27ABCDE5678G1Z5"
-    assert data["taxable_amount"] == "1000.00"
-    assert data["cgst"] == "90.00"
-    assert data["sgst"] == "90.00"
-    assert data["igst"] is None
-    assert data["total_tax"] == "180.00"
-    assert data["grand_total"] == "1180.00"
+    assert data["seller"]["name"] == "ABC Traders"
+    assert data["seller"]["gstin"] == "29ABCDE1234F1Z5"
+    assert data["buyer"]["name"] == "XYZ Enterprises"
+    assert data["buyer"]["gstin"] == "27ABCDE5678G1Z5"
+    assert data["financials"]["taxable_amount"] == "1000.00"
+    assert data["financials"]["cgst"] == "90.00"
+    assert data["financials"]["sgst"] == "90.00"
+    assert data["financials"]["igst"] is None
+    assert data["financials"]["total_tax"] == "180.00"
+    assert data["financials"]["grand_total"] == "1180.00"
 
 @pytest.mark.asyncio
 async def test_extract_different_date_formats(client: AsyncClient, ocr_results_dir):
@@ -94,10 +94,10 @@ async def test_extract_monetary_formats(client: AsyncClient, ocr_results_dir):
     
     response = await client.post(f"/api/v1/documents/{doc_id}/extract")
     data = response.json()
-    assert data["taxable_amount"] == "1180.00"
-    assert data["grand_total"] == "1180.00"
-    assert data["igst"] == "180.00"
-    assert data["total_tax"] == "180.00"
+    assert data["financials"]["taxable_amount"] == "1180.00"
+    assert data["financials"]["grand_total"] == "1180.00"
+    assert data["financials"]["igst"] == "180.00"
+    assert data["financials"]["total_tax"] == "180.00"
 
 @pytest.mark.asyncio
 async def test_extract_ocr_noise(client: AsyncClient, ocr_results_dir):
@@ -108,7 +108,7 @@ async def test_extract_ocr_noise(client: AsyncClient, ocr_results_dir):
     response = await client.post(f"/api/v1/documents/{doc_id}/extract")
     data = response.json()
     assert data["invoice_number"] == "INV_1001"
-    assert data["seller_gstin"] == "29ABCDE1234F1Z5"
+    assert data["seller"]["gstin"] == "29ABCDE1234F1Z5"
 
 @pytest.mark.asyncio
 async def test_extract_missing_fields(client: AsyncClient, ocr_results_dir):
@@ -120,7 +120,7 @@ async def test_extract_missing_fields(client: AsyncClient, ocr_results_dir):
     data = response.json()
     assert data["invoice_number"] == "1234"
     assert data["invoice_date"] is None
-    assert data["seller_gstin"] is None
+    assert data["seller"]["gstin"] is None
 
 @pytest.mark.asyncio
 async def test_extract_missing_ocr_result(client: AsyncClient, ocr_results_dir):

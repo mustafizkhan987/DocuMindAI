@@ -13,7 +13,7 @@
 
 ## Current Task
 
-**Task 9 — Invoice Information Extraction** ✅ COMPLETED
+**Task 10 — Canonical Structured Invoice Schema** ✅ COMPLETED
 
 ---
 
@@ -72,6 +72,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 - [x] Task 8.5: Professional Android UI
 - [x] Task 8.5B: Final UI / Integration Correction
 - [x] Task 9: Invoice Information Extraction
+- [x] Task 10: Canonical Structured Invoice Schema
 
 ---
 
@@ -165,7 +166,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 ## Next Task
 
-**Task 10 — Structured Invoice Schema**
+**Task 11 — GSTIN Validation**
 
 ---
 

@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from fastapi import HTTPException, status
 from app.core.config import settings
-from app.schemas.invoice import InvoiceExtractionResult
+from app.schemas.invoice import InvoiceExtractionResult, CanonicalInvoice, Party, Financials
 from app.services.classification_service import classification_service
 from app.schemas.classification import DocumentType
 
@@ -61,7 +61,36 @@ class ExtractionService:
             
         # 3. Extract Invoice Data
         extracted_data = self._perform_extraction(text)
-        result = InvoiceExtractionResult(document_id=document_id, **extracted_data)
+        
+        seller = Party(
+            name=extracted_data.get('seller_name'),
+            gstin=extracted_data.get('seller_gstin'),
+            address=extracted_data.get('seller_address')
+        )
+        
+        buyer = Party(
+            name=extracted_data.get('buyer_name'),
+            gstin=extracted_data.get('buyer_gstin'),
+            address=extracted_data.get('buyer_address')
+        )
+        
+        financials = Financials(
+            taxable_amount=extracted_data.get('taxable_amount'),
+            cgst=extracted_data.get('cgst'),
+            sgst=extracted_data.get('sgst'),
+            igst=extracted_data.get('igst'),
+            total_tax=extracted_data.get('total_tax'),
+            grand_total=extracted_data.get('grand_total')
+        )
+        
+        result = CanonicalInvoice(
+            document_id=document_id,
+            invoice_number=extracted_data.get('invoice_number'),
+            invoice_date=extracted_data.get('invoice_date'),
+            seller=seller,
+            buyer=buyer,
+            financials=financials
+        )
         
         # 4. Save to local storage
         save_path = self.extraction_dir / f"{document_id}.json"
