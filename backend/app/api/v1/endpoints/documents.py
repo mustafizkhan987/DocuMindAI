@@ -85,3 +85,38 @@ async def validate_gstin(document_id: str):
         seller_gstin=gstin_validation_service.validate(seller_gstin),
         buyer_gstin=gstin_validation_service.validate(buyer_gstin)
     )
+
+from app.services.state_detection_service import state_detection_service
+from app.schemas.state_detection import DocumentStateDetectionResponse
+
+@router.post("/{document_id}/detect-state", response_model=DocumentStateDetectionResponse)
+async def detect_state(document_id: str):
+    """
+    Detect seller and buyer state/jurisdiction from their GSTINs.
+    Requires classification as INVOICE and extraction to have been completed.
+    Returns state codes, names, and whether parties are in the same or different state.
+    Does NOT draw any tax conclusions (CGST/SGST/IGST).
+    """
+    # Explicit invoice classification gate
+    classification_result = classification_service.classify_document(document_id)
+    if classification_result.document_type != DocumentType.INVOICE:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="State detection is only available for documents classified as Invoice."
+        )
+
+    invoice = extraction_service.get_extraction_result(document_id)
+
+    seller_gstin = invoice.seller.gstin if invoice.seller else None
+    buyer_gstin = invoice.buyer.gstin if invoice.buyer else None
+
+    seller_state = state_detection_service.detect_state(seller_gstin)
+    buyer_state = state_detection_service.detect_state(buyer_gstin)
+    relationship = state_detection_service.compare_jurisdictions(seller_state, buyer_state)
+
+    return DocumentStateDetectionResponse(
+        document_id=document_id,
+        seller=seller_state,
+        buyer=buyer_state,
+        jurisdiction_relationship=relationship
+    )

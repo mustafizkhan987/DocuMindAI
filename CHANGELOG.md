@@ -22,6 +22,17 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.12.0] — 2026-09-30
+
+### Task 12: GSTIN State / Jurisdiction Detection
+#### Added
+- **State Code Mapping**: Centralized GST state-code → state/UT mapping covering codes 01–38 plus special codes 97 and 99.
+- **State Detection Service**: Deterministic state detection from validated GSTINs, delegating structural validation to Task 11.
+- **Jurisdiction Comparison**: Same-state / different-state / unavailable relationship detection between seller and buyer.
+- **Detection Endpoint**: Added `POST /api/v1/documents/{document_id}/detect-state` with explicit INVOICE classification gate.
+
+---
+
 ## [0.11.0] — 2026-09-30
 
 ### Task 11: GSTIN Validation

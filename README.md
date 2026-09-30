@@ -32,7 +32,7 @@ Canonical Invoice Schema
          ↓
   GSTIN Validation
          ↓
-State Detection (Future)
+  State Detection
          ↓
     Issue Detection
          ↓
@@ -190,7 +190,7 @@ The primary differentiator is **India-specific invoice intelligence**:
 
 ## Target Architecture
 
-*(Note: This represents the future state. Current implementation is Upload → Preprocessing → OCR → Classification → Invoice Extraction → Canonical Invoice Schema → GSTIN Validation. State detection, Mathematical validation, Duplicate detection, Analytics, RAG, and Q&A are future roadmap capabilities.)*
+*(Note: This represents the future state. Current implementation is Upload → Preprocessing → OCR → Classification → Invoice Extraction → Canonical Invoice Schema → GSTIN Validation → State Detection. Tax type validation, Mathematical validation, Duplicate detection, Analytics, RAG, and Q&A are future roadmap capabilities.)*
 
 ```
                     ANDROID APP
@@ -373,6 +373,7 @@ pytest tests/ -v
 | POST | `/api/v1/documents/{document_id}/extract` | Extract invoice fields (Task 9) |
 
 | POST | `/api/v1/documents/{document_id}/validate-gstin` | Validate GSTIN format & checksum (Task 11) |
+| POST | `/api/v1/documents/{document_id}/detect-state` | Detect seller/buyer state jurisdiction (Task 12) |
 
 ### Planned (Future Tasks)
 
@@ -420,7 +421,7 @@ DocuMind AI processes sensitive business documents. Key security principles:
 
 See [PROJECT_STATUS.md](PROJECT_STATUS.md) for the latest project status.
 
-**Currently working (Tasks 1–11):**
+**Currently working (Tasks 1–12):**
 - `GET /` — API root
 - `GET /health` — Base health check
 - `GET /api/v1/health` — Versioned API health check with DB status
@@ -432,6 +433,7 @@ See [PROJECT_STATUS.md](PROJECT_STATUS.md) for the latest project status.
 - `POST /api/v1/documents/{document_id}/classify` — Document classification
 - `POST /api/v1/documents/{document_id}/extract` — Invoice information extraction (Canonical Schema)
 - `POST /api/v1/documents/{document_id}/validate-gstin` — GSTIN structural and checksum validation
+- `POST /api/v1/documents/{document_id}/detect-state` — State/jurisdiction detection
 - Android Application — Professional UI, Compose Navigation, MVVM Architecture
 
 ---
