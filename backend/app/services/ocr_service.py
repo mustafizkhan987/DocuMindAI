@@ -2,6 +2,7 @@ import os
 import re
 from pathlib import Path
 from typing import List, Optional
+import json
 from fastapi import HTTPException, status
 from app.core.config import settings
 from app.schemas.ocr import OCRDocumentResult, OCRPageResult
@@ -87,12 +88,22 @@ class OCRService:
                     detail=f"OCR processing failed on page {page_num}: {str(e)}"
                 )
                 
-        return OCRDocumentResult(
+        result_obj = OCRDocumentResult(
             document_id=document_id,
             page_count=len(pages_result),
             text="\n\n".join(combined_text),
             pages=pages_result
         )
+        
+        # Save to file for subsequent pipeline stages
+        ocr_dir = Path(settings.STORAGE_DIR) / "ocr_results" if hasattr(settings, 'STORAGE_DIR') else Path("storage/ocr_results")
+        ocr_dir.mkdir(parents=True, exist_ok=True)
+        
+        result_file = ocr_dir / f"{document_id}.json"
+        with open(result_file, "w", encoding="utf-8") as f:
+            f.write(result_obj.model_dump_json(indent=2))
+            
+        return result_obj
 
     def _extract_page_number(self, filename: str) -> int:
         match = re.search(r'_page_(\d+)\.png', filename)

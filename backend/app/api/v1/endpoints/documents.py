@@ -32,3 +32,14 @@ async def extract_text(document_id: str):
     Requires preprocessing to have been completed.
     """
     return ocr_service.extract_text(document_id)
+
+from app.services.classification_service import classification_service
+from app.schemas.classification import ClassificationResult
+
+@router.post("/{document_id}/classify", response_model=ClassificationResult)
+async def classify_document(document_id: str):
+    """
+    Classify a document type based on its extracted OCR text.
+    Requires OCR to have been completed.
+    """
+    return classification_service.classify_document(document_id)

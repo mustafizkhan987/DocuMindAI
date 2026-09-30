@@ -15,7 +15,7 @@ DocuMind AI is an Android-first intelligent document and invoice processing plat
 
 The platform goes far beyond simple OCR scanning. It **understands** documents, **extracts** structured information, **verifies** GST compliance, **detects** issues, and **explains** every finding in plain language.
 
-*(Currently implemented: Document Upload Pipeline, Image Preprocessing, and OCR Extraction. Classification and Extraction are scheduled for upcoming tasks.)*
+*(Currently implemented: Document Upload Pipeline, Image Preprocessing, OCR Extraction, and Classification. Invoice Extraction is scheduled for the upcoming task.)*
 
 ```
 Camera Photo / Image / PDF
@@ -367,7 +367,9 @@ pytest tests/ -v
 |--------|----------|------|-------------|
 | POST | `/api/v1/documents/upload` | Task 5 | Upload document |
 | GET | `/api/v1/documents/{id}` | Task 5 | Get document |
-| POST | `/api/v1/ocr/process` | Task 7 | Run OCR |
+| POST | `/api/v1/documents/{id}/preprocess` | Task 6 | Preprocess for OCR |
+| POST | `/api/v1/documents/{id}/ocr` | Task 7 | Run OCR |
+| POST | `/api/v1/documents/{id}/classify` | Task 8 | Classify document type |
 | POST | `/api/v1/extract/invoice` | Task 9 | Extract invoice fields |
 | POST | `/api/v1/validate/gstin` | Task 11 | Validate GSTIN |
 | GET | `/api/v1/documents/history` | Task 17 | Document history |

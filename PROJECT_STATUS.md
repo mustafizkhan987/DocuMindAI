@@ -1,7 +1,7 @@
 # Project Status
 
 > **Last Updated:** 2026-09-30
-> **Updated By:** Task 7 — OCR Engine
+> **Updated By:** Task 8 — Document Classification
 
 ---
 
@@ -13,7 +13,7 @@
 
 ## Current Task
 
-**Task 7 — OCR Engine** ✅ COMPLETED
+**Task 8 — Document Classification** ✅ COMPLETED
 
 ---
 
@@ -21,7 +21,7 @@
 
 ```
 Phase 1 — Foundation          [██████████] 100% (Task 4 of 4 complete)
-Phase 2 — Document Pipeline   [██████░░░░]  60% (Task 7 complete)
+Phase 2 — Document Pipeline   [████████░░]  80% (Task 8 complete)
 Phase 3 — Invoice Intelligence [░░░░░░░░░░]  0%
 Phase 4 — Persistence         [░░░░░░░░░░]   0%
 Phase 5 — Intelligence        [░░░░░░░░░░]   0%
@@ -68,12 +68,13 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 - [x] Secure local development storage
 - [x] Task 6: Image Preprocessing pipeline
 - [x] Task 7: OCR Engine using EasyOCR
+- [x] Task 8: Document Classification
 
 ---
 
 ## In Progress
 
-*None — Task 7 is complete. Task 8 is next.*
+*None — Task 8 is complete. Task 9 is next.*
 
 ---
 
@@ -81,7 +82,6 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 | Task | Name |
 |------|------|
-| Task 8 | Document Classification |
 | Task 9 | Invoice Extraction |
 | Task 10 | Structured Invoice Schema |
 | Task 11 | GSTIN Validation |
@@ -157,7 +157,7 @@ Phase 8 — Production          [░░░░░░░░░░]   0%
 
 ## Next Task
 
-**Task 8 — Document Classification**
+**Task 9 — Invoice Extraction**
 
 ---
 

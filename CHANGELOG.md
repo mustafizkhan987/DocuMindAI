@@ -6,6 +6,17 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.8.0] — 2026-09-30
+
+### Task 8 — Document Classification
+
+#### Added
+- **Classification Service**: Created a deterministic Rule-Based TF (Term Frequency) Weighted Scoring algorithm.
+- **Classification Endpoint**: Added `POST /api/v1/documents/{document_id}/classify` to evaluate OCR strings against document signatures (Invoice, Receipt, Purchase Order, Bill, Other).
+- **OCR Persistence**: Modified OCR pipeline to cache outputs in local JSON files (`storage/ocr_results`), enabling decoupled sequential pipeline steps without redundant deep-learning inferences.
+
+---
+
 ## [0.7.0] — 2026-09-30
 
 ### Task 7 — OCR Engine
